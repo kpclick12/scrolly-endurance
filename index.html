@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="En visuell berättelse om Andreas Almgrens maratondebut, maratonets historia och träningen bakom 42 195 meter." />
+    <title>Almgrens första maraton</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#history">Hoppa till berättelsen</a>
+
+    <main>
+      <header class="hero" id="top">
+        <div class="hero__route" aria-hidden="true">
+          <svg viewBox="0 0 740 780" preserveAspectRatio="xMidYMid meet">
+            <path d="M42 727 C145 657 125 557 241 531 C348 508 408 569 485 486 C547 419 492 326 570 260 C630 208 689 149 675 42" />
+            <circle cx="42" cy="727" r="7" />
+          </svg>
+        </div>
+
+        <div class="hero__inner">
+          <p class="eyebrow">Andreas Almgren · New York · 1 november 2026</p>
+          <h1>Almgren väljer New York för sitt första maraton</h1>
+          <p class="hero__lead">Efter EM-guldet på 10 000 meter började ett nytt träningsblock. Om tio veckor ska han springa 42 195 meter genom New York.</p>
+          <blockquote>
+            <p>”Det kändes rätt, att det här vill jag göra.”</p>
+            <cite>Andreas Almgren till Aftonbladet</cite>
+          </blockquote>
+
+          <div class="hero__times" aria-label="Andreas Almgrens personbästan och kommande maratondebut">
+            <div><span>10 km</span><strong>26:45</strong><small>personbästa</small></div>
+            <div><span>Halvmaraton</span><strong>58:41</strong><small>Europarekord</small></div>
+            <div class="hero__time-empty"><span>Maraton</span><strong>–</strong><small>första starten</small></div>
+          </div>
+
+          <a class="scroll-cue" href="#history">Börja på Staten Island <span aria-hidden="true">↓</span></a>
+        </div>
+      </header>
+
+      <section class="history" id="history" aria-labelledby="history-title">
+        <h2 id="history-title" class="visually-hidden">Maratonets historia längs New York-banan</h2>
+        <div class="history__sticky">
+          <div class="history__heading" aria-hidden="true">
+            <span>Maratonets historia</span>
+            <span>New York-banan</span>
+          </div>
+
+          <div class="history__map" aria-hidden="true">
+            <svg id="route-map" viewBox="0 0 1000 780" preserveAspectRatio="xMidYMid meet">
+              <g class="borough-shapes">
+                <path d="M69 657L90 597L128 568L162 581L184 646L142 710L92 708Z" />
+                <path d="M184 646L176 559L230 469L309 412L405 397L480 429L470 510L388 576L294 626Z" />
+                <path d="M405 397L493 342L610 344L697 400L684 474L588 486L470 510L480 429Z" />
+                <path d="M683 343L719 257L756 145L783 62L822 72L818 164L790 277L759 382L697 400Z" />
+                <path d="M719 257L670 215L692 129L750 90L783 62L756 145Z" />
+              </g>
+              <g class="street-grid">
+                <path d="M119 615L183 590M106 651L171 626M225 527L431 440M230 560L449 469M269 588L465 503" />
+                <path d="M479 384L666 416M507 365L686 397M531 451L665 364" />
+                <path d="M741 336L788 150M725 302L776 113M709 271L762 84M705 246L805 273M713 212L813 236M722 176L819 198" />
+              </g>
+
+              <path id="route-road" class="route route--road" d="" />
+              <path id="route-progress" class="route route--progress" d="" />
+              <path id="route-centre" class="route route--centre" d="" />
+              <g id="milestones"></g>
+              <circle id="runner-halo" r="18" cx="104" cy="666" />
+              <circle id="runner" r="7" cx="104" cy="666" />
+
+              <g class="map-labels">
+                <text x="65" y="746">STATEN ISLAND</text>
+                <text x="270" y="650">BROOKLYN</text>
+                <text x="516" y="521">QUEENS</text>
+                <text x="700" y="110">BRONX</text>
+                <text x="827" y="319" transform="rotate(-78 827 319)">MANHATTAN</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="history__distance" aria-hidden="true"><span id="route-km">0,0</span><small>km</small></div>
+          <div class="history__bar" aria-hidden="true"><span id="history-bar"></span></div>
+
+          <div class="history__texts" aria-live="polite">
+            <article class="history-text is-visible" data-history="0">
+              <p class="history-date">490 f.Kr.?</p>
+              <h3>Innan loppet fanns en legend</h3>
+              <p>Namnet kommer från berättelsen om en budbärare som sprang från Marathon till Aten. Historien är omtvistad, men blev utgångspunkt för det moderna loppet.</p>
+            </article>
+            <article class="history-text" data-history="1">
+              <p class="history-date">Aten 1896</p>
+              <h3>Det första olympiska maratonloppet</h3>
+              <p>Distansen var omkring 40 kilometer. Under de första åren varierade längden från lopp till lopp.</p>
+            </article>
+            <article class="history-text" data-history="2">
+              <p class="history-date">London 1908</p>
+              <h3>42 195 meter</h3>
+              <p>Sträckan i London blev 42 kilometer och 195 meter. Den längden fastställdes som internationell standard 1921.</p>
+            </article>
+            <article class="history-text" data-history="3">
+              <p class="history-date">New York 1970</p>
+              <h3>Fyra varv i Central Park</h3>
+              <p>127 löpare startade i det första New York City Marathon. 55 tog sig i mål.</p>
+            </article>
+            <article class="history-text" data-history="4">
+              <p class="history-date">New York 1976</p>
+              <h3>Staden blev banan</h3>
+              <p>Loppet flyttades ut genom alla fem stadsdelar. Den nya banan gick från Staten Island till Central Park.</p>
+            </article>
+            <article class="history-text" data-history="5">
+              <p class="history-date">New York 2026</p>
+              <h3>Femtio år senare står Almgren på startlinjen</h3>
+              <p>Han har valt en kuperad bana utan farthållare. En lugnare första halva kan ge honom möjlighet att använda sin 10 000-metersfart sent i loppet.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="speed" id="speed" aria-labelledby="speed-title">
+        <div class="speed__intro page-width">
+          <p class="act-label">Farten</p>
+          <h2 id="speed-title">Hur fort är 21 kilometer i timmen?</h2>
+          <p>Det går att läsa siffran. Svårare att känna den. Börja med en fart som går att ställa in på ett löpband.</p>
+        </div>
+
+        <div class="speed-scrolly">
+          <div class="speed-stage" data-speed-mode="you">
+            <div class="speed-scene" role="img" aria-labelledby="speed-scene-title speed-scene-desc">
+              <h3 id="speed-scene-title" class="visually-hidden">Jämförelse mellan löpbandsfart, Andreas Almgrens halvmaratonfart och maratonvärldsrekordet</h3>
+              <p id="speed-scene-desc" class="visually-hidden">En perspektivbild av tre löpare. Din valda löpbandsfart jämförs med Andreas Almgrens snittfart på halvmaraton och snittfarten i herrarnas maratonvärldsrekord.</p>
+
+              <div class="speed-sky" aria-hidden="true">
+                <span style="--x:2%;--w:7%;--h:22%"></span><span style="--x:10%;--w:11%;--h:34%"></span>
+                <span style="--x:22%;--w:5%;--h:18%"></span><span style="--x:28%;--w:13%;--h:42%"></span>
+                <span style="--x:42%;--w:6%;--h:28%"></span><span style="--x:49%;--w:10%;--h:38%"></span>
+                <span style="--x:60%;--w:15%;--h:24%"></span><span style="--x:76%;--w:8%;--h:46%"></span>
+                <span style="--x:85%;--w:13%;--h:30%"></span>
+              </div>
+              <div class="speed-horizon" aria-hidden="true"><span>21 km/h = 350 meter per minut</span></div>
+
+              <div class="speed-road" aria-hidden="true">
+                <div class="speed-road__texture"></div>
+                <span class="speed-lane speed-lane--left"></span>
+                <span class="speed-lane speed-lane--right"></span>
+                <span class="speed-road__mark speed-road__mark--1">100 m</span>
+                <span class="speed-road__mark speed-road__mark--2">500 m</span>
+                <span class="speed-road__mark speed-road__mark--3">1 km</span>
+              </div>
+
+              <div class="pace-runner pace-runner--you" aria-hidden="true">
+                <span class="pace-runner__head"></span><span class="pace-runner__body"></span>
+                <span class="pace-runner__arm pace-runner__arm--a"></span><span class="pace-runner__arm pace-runner__arm--b"></span>
+                <span class="pace-runner__leg pace-runner__leg--a"></span><span class="pace-runner__leg pace-runner__leg--b"></span>
+                <b>DU</b>
+              </div>
+              <div class="pace-runner pace-runner--almgren" aria-hidden="true">
+                <span class="pace-runner__head"></span><span class="pace-runner__body"></span>
+                <span class="pace-runner__arm pace-runner__arm--a"></span><span class="pace-runner__arm pace-runner__arm--b"></span>
+                <span class="pace-runner__leg pace-runner__leg--a"></span><span class="pace-runner__leg pace-runner__leg--b"></span>
+                <b>ALMGREN</b>
+              </div>
+              <div class="pace-runner pace-runner--record" aria-hidden="true">
+                <span class="pace-runner__head"></span><span class="pace-runner__body"></span>
+                <span class="pace-runner__arm pace-runner__arm--a"></span><span class="pace-runner__arm pace-runner__arm--b"></span>
+                <span class="pace-runner__leg pace-runner__leg--a"></span><span class="pace-runner__leg pace-runner__leg--b"></span>
+                <b>VÄRLDSREKORD</b>
+              </div>
+
+              <div class="speed-hud" aria-hidden="true">
+                <div class="speed-hud__mode speed-hud__mode--you">
+                  <span>Löpband</span><strong><span data-user-speed>16,0</span><small>km/h</small></strong><em data-user-pace>3.45 / km</em>
+                </div>
+                <div class="speed-hud__mode speed-hud__mode--almgren">
+                  <span>Almgren · halvmaraton</span><strong>21,6<small>km/h</small></strong><em>2:47 / km · 58:41</em>
+                </div>
+                <div class="speed-hud__mode speed-hud__mode--gap">
+                  <span>Efter 58 min 41 sek</span><strong><span data-half-gap>5,4</span><small>km lucka</small></strong><em><span data-half-distance>15,6</span> km mot 21,1 km</em>
+                </div>
+                <div class="speed-hud__mode speed-hud__mode--record">
+                  <span>Maratonvärldsrekord</span><strong>2:00:35</strong><em>21,0 km/h i 42,195 km</em>
+                </div>
+              </div>
+
+              <div class="speed-clock" aria-hidden="true">
+                <span class="speed-clock__label">jämförelsetid</span>
+                <strong id="speed-clock-value">00:00</strong>
+                <div><i id="speed-clock-bar"></i></div>
+              </div>
+            </div>
+
+            <form class="treadmill-control" aria-label="Jämför med din egen löpbandsfart">
+              <label for="treadmill-speed">Din löpbandsfart <output for="treadmill-speed"><span data-user-speed>16,0</span> km/h</output></label>
+              <input id="treadmill-speed" type="range" min="10" max="21" step="0.5" value="16" />
+              <p><span data-user-pace>3.45 / km</span><span><b data-two-hour-distance>32,0</b> km på två timmar</span></p>
+            </form>
+            <p class="visually-hidden" id="speed-live" aria-live="polite"></p>
+          </div>
+
+          <div class="speed-steps">
+            <article class="speed-step is-active" data-speed="you">
+              <p class="step-number">01 / Din referens</p>
+              <h3><span data-user-speed>16,0</span> km/h är <span data-user-pace-short>3:45</span> per kilometer</h3>
+              <p>Det är snabbt på ett löpband. Här får den farten vara kameran som vi jämför eliten mot. Reglaget ändrar jämförelsen.</p>
+            </article>
+            <article class="speed-step" data-speed="almgren">
+              <p class="step-number">02 / Almgrens fart</p>
+              <h3>Han lägger på <span data-speed-difference>5,6</span> km/h</h3>
+              <p>Europarekordet 58:41 på halvmaraton motsvarar 21,6 km/h, eller 2:47 per kilometer. När du når en kilometer har Almgren hunnit <span data-almgren-at-your-km>1,35</span> kilometer.</p>
+            </article>
+            <article class="speed-step" data-speed="gap">
+              <p class="step-number">03 / Farten blir avstånd</p>
+              <h3>På knappt en timme öppnas fem kilometer</h3>
+              <p>När Almgren går i mål på halvmaran visar ditt löpband <span data-half-distance>15,6</span> kilometer. Skillnaden är <span data-half-gap>5,4</span> kilometer.</p>
+            </article>
+            <article class="speed-step" data-speed="record">
+              <p class="step-number">04 / Två timmar</p>
+              <h3>21 km/h i två timmar finns redan i rekordlistan</h3>
+              <p>Kelvin Kiptums maratonvärldsrekord 2:00:35 motsvarar nästan exakt 21 km/h hela vägen. Det är ingen prognos för Almgren i New York. Det visar bara vilken fart världseliten kan hålla.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="performance" aria-labelledby="performance-title">
+        <div class="performance__intro page-width">
+          <p class="act-label">Från fart till kropp</p>
+          <h2 id="performance-title">Vad gör någon bra på maraton?</h2>
+          <p>Farten finns redan. Maratonfrågan är hur mycket av den som går att behålla. Tre fysiologiska mått återkommer i forskningen om elitlöpare. Kroppsmassan påverkar också löpningens kostnad, men är inte ett fristående facit.</p>
+        </div>
+
+        <div class="performance-scrolly">
+          <div class="performance-sticky" data-active-factor="0">
+            <svg class="runner-model" viewBox="0 0 780 590" role="img" aria-labelledby="runner-model-title runner-model-desc">
+              <title id="runner-model-title">Fyra faktorer bakom maratonprestation</title>
+              <desc id="runner-model-desc">En 42,195 kilometer lång linje med syretak, hållbar andel, energikostnad per steg och ett möjligt tapp efter tre mil. Kroppsmassa visas som last på systemet.</desc>
+
+              <path class="model-grid" d="M70 100H710M70 190H710M70 280H710M70 370H710M70 460H710" />
+              <path class="model-distance" d="M70 492H710" />
+              <text class="model-km" x="70" y="528">0 KM</text>
+              <text class="model-km" x="365" y="528">21,1</text>
+              <text class="model-km" x="662" y="528">42,195 KM</text>
+
+              <g class="model-layer model-layer--vo2">
+                <text x="70" y="67">VO₂MAX / SYRETAK</text>
+                <path d="M70 100H710" />
+                <path class="oxygen-pulse" d="M70 100 C126 76 169 124 225 100 S324 76 380 100 S479 124 535 100 S634 76 710 100" />
+              </g>
+              <g class="model-layer model-layer--fraction">
+                <text x="70" y="158">HÅLLBAR ANDEL AV TAKET</text>
+                <path d="M70 190H710" />
+              </g>
+              <g class="model-layer model-layer--durability">
+                <text x="70" y="248">NÄR TIDEN BÖRJAR KOSTA</text>
+                <path d="M70 280H470 C540 280 584 294 622 324 C656 350 684 379 710 407" />
+                <path class="thirty-mark" d="M527 258V420" />
+                <text class="thirty-label" x="536" y="405">30 KM</text>
+              </g>
+              <g class="model-layer model-layer--economy">
+                <text x="70" y="348">KOSTNAD PER STEG / LÖPEKONOMI</text>
+                <path d="M70 370H710" />
+                <path class="step-marks" d="M90 357V383M130 357V383M170 357V383M210 357V383M250 357V383M290 357V383M330 357V383M370 357V383M410 357V383M450 357V383M490 357V383M530 357V383M570 357V383M610 357V383M650 357V383M690 357V383" />
+              </g>
+
+              <g class="model-load" transform="translate(190 435)">
+                <circle r="48" /><text y="5">MASSA</text>
+              </g>
+              <g class="model-runner" transform="translate(254 442)">
+                <circle cx="5" cy="-66" r="15" />
+                <path d="M-4 -49L-18 4L21 25M-10 -30L39 -13M-18 4L-48 49M21 25L55 60" />
+              </g>
+
+              <g class="model-formula">
+                <text x="390" y="566">FART ≈ SYRE × HÅLLBAR ANDEL ÷ KOSTNAD</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="performance-steps">
+            <article class="performance-step is-active" data-factor="0">
+              <p class="step-number">01 / Kroppsmassa</p>
+              <h3>Varje kilo ska flyttas 42 kilometer</h3>
+              <p>Kroppsmassa påverkar syrekostnaden, särskilt i uppförsbackar. Samtidigt kan för låg energitillgänglighet försämra hälsa, återhämtning och prestation. Vikt är därför ingen enkel ratt som bara ska vridas nedåt.</p>
+            </article>
+            <article class="performance-step" data-factor="1">
+              <p class="step-number">02 / Maximal syreupptagning</p>
+              <h3>VO₂max sätter ett högt tak</h3>
+              <p>Måttet beskriver hur mycket syre kroppen maximalt kan ta upp och använda. Almgren kommer till maratonblocket med den kapaciteten väl utvecklad från 5 000 och 10 000 meter.</p>
+            </article>
+            <article class="performance-step" data-factor="2">
+              <p class="step-number">03 / Löpekonomi</p>
+              <h3>Samma fart kan kosta olika mycket</h3>
+              <p>Löpekonomi är mängden syre som krävs vid en bestämd fart. Två löpare med samma VO₂max kan därför ha olika mycket kvar till slutet.</p>
+            </article>
+            <article class="performance-step" data-factor="3">
+              <p class="step-number">04 / Uthållighet</p>
+              <h3>En stor del av taket måste gå att använda länge</h3>
+              <p>Tröskelfart, energitillgång och musklernas tålighet påverkar hur stor del av kapaciteten som finns kvar efter två timmar. Här ligger det mesta av Almgrens nya arbete.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="training" aria-labelledby="training-title">
+        <div class="training__intro page-width">
+          <p class="act-label">Träningen bakom siffrorna</p>
+          <h2 id="training-title">Två tröskelpass på samma dag</h2>
+          <p>Almgren har använt dubbeltröskel sedan 2019. Metoden förknippas med de norska löparna och har populariserats av bröderna Ingebrigtsen.</p>
+        </div>
+
+        <div class="training-scrolly">
+          <div class="training-sticky" data-training-mode="week">
+            <div class="training-visual training-visual--week" aria-hidden="true">
+              <div class="week-head"><span>Exempel på grundvecka</span><strong>2 × dubbeltröskel</strong></div>
+              <div class="week-grid">
+                <span class="week-corner"></span>
+                <b>Mån</b><b>Tis</b><b>Ons</b><b>Tor</b><b>Fre</b><b>Lör</b><b>Sön</b>
+                <small>FM</small>
+                <i class="easy">Lugn</i><i class="threshold">Tröskel</i><i class="easy">Lugn</i><i class="threshold">Tröskel</i><i class="easy">Lugn</i><i class="easy">Lugn</i><i class="long">Långt</i>
+                <small>EM</small>
+                <i class="easy">Lugn</i><i class="threshold">Tröskel</i><i class="easy">Lugn</i><i class="threshold">Tröskel</i><i class="easy">Lugn</i><i class="fast">Backe</i><i class="rest">Vila</i>
+              </div>
+              <p class="week-note">Schemat visar den ofta beskrivna norska grundmodellen, inte Almgrens aktuella maratonvecka.</p>
+            </div>
+
+            <div class="training-visual training-visual--lactate" aria-hidden="true">
+              <div class="lactate-head"><span>Kontroll efter intervaller</span><strong>mmol/L</strong></div>
+              <svg viewBox="0 0 760 470">
+                <path class="lactate-axis" d="M86 390H696M86 390V72" />
+                <path class="lactate-band" d="M86 274H696V162H86Z" />
+                <path class="lactate-line" d="M86 356 C238 355 328 338 403 296 C484 251 532 191 571 130 C606 77 650 67 696 66" />
+                <path class="lactate-limit" d="M86 162H696" />
+                <g class="lactate-samples">
+                  <circle cx="218" cy="292" r="9" /><circle cx="348" cy="263" r="9" /><circle cx="472" cy="217" r="9" />
+                </g>
+                <text x="94" y="148">ÖVRE DELEN AV MÅLOMRÅDET</text>
+                <text x="94" y="440">FART / REPETITIONER →</text>
+                <text x="21" y="91">BLODLAKTAT</text>
+              </svg>
+              <p class="lactate-readout"><span>2–4,5 mmol/L</span><small>typiskt spann i forskningsbeskrivningen av modellen, inte ett individuellt mål</small></p>
+            </div>
+
+            <div class="training-visual training-visual--compare" aria-hidden="true">
+              <div class="compare-head"><span>Samma grundidé</span><strong>olika löpare</strong></div>
+              <div class="compare-runners">
+                <div><span class="runner-mark">JI</span><h3>Jakob Ingebrigtsen</h3><p>Två kontrollerade tröskelpass på samma dag. Stor träningsmängd runt tröskelfart.</p></div>
+                <div><span class="runner-mark">AA</span><h3>Andreas Almgren</h3><p>Har använt dubbeltröskel i sju år och styr passen med fart, puls, laktat och känsla.</p></div>
+              </div>
+            </div>
+
+            <div class="training-visual training-visual--marathon" aria-hidden="true">
+              <div class="marathon-head"><span>Maratonblocket 2026</span><strong>längre + lugnare</strong></div>
+              <div class="marathon-track">
+                <span class="track-base"></span>
+                <span class="track-lt" style="--left:10%;--width:12%"></span>
+                <span class="track-lt" style="--left:30%;--width:12%"></span>
+                <span class="track-lt" style="--left:50%;--width:12%"></span>
+                <span class="track-lt" style="--left:70%;--width:12%"></span>
+                <span class="track-finish"></span>
+                <i class="fuel-dot fuel-dot--1"></i><i class="fuel-dot fuel-dot--2"></i><i class="fuel-dot fuel-dot--3"></i><i class="fuel-dot fuel-dot--4"></i>
+              </div>
+              <div class="marathon-metrics">
+                <p><strong>LT1</strong><span>större fokus</span></p>
+                <p><strong>35–40 km</strong><span>långa pass</span></p>
+                <p><strong>90–100 min</strong><span>innan snabb avslutning</span></p>
+              </div>
+              <p class="marathon-note">Almgren beskriver längre pass på lägre intensitet än i sin vanliga dubbeltröskelträning.</p>
+            </div>
+          </div>
+
+          <div class="training-steps">
+            <article class="training-step is-active" data-training="week">
+              <p class="step-number">01 / Dubbeltröskel</p>
+              <h3>Morgon och kväll blir en hård träningsdag</h3>
+              <p>Två kontrollerade tröskelpass samlas på samma dag. Dagen efter hålls lugn. Upplägget gör det möjligt för elitlöpare att samla stor träningsmängd nära tröskeln.</p>
+            </article>
+            <article class="training-step" data-training="lactate">
+              <p class="step-number">02 / Laktatprovet</p>
+              <h3>Mätningen fungerar som fartbegränsare</h3>
+              <p>Ett litet blodprov tas under passet. Om laktatet stiger mer än planerat sänks farten. Tröskelpassen ska gå att upprepa utan samma återhämtning som ett maximalt pass kräver.</p>
+            </article>
+            <article class="training-step" data-training="compare">
+              <p class="step-number">03 / Ingebrigtsen och Almgren</p>
+              <h3>De delar metoden, men inte ett identiskt schema</h3>
+              <p>Ingebrigtsens träningsmiljö gjorde dubbeltröskeln känd. Almgren började använda den 2019 och har även tränat med Jakob. Båda använder laktat för att styra belastningen.</p>
+            </article>
+            <article class="training-step" data-training="marathon">
+              <p class="step-number">04 / Anpassningen till maraton</p>
+              <h3>Den vanliga dubbeltröskeln räcker inte hela vägen</h3>
+              <p>I det nya blocket gör Almgren längre pass på lägre intensitet. Han prioriterar LT1, energitillförsel och snabb löpning efter att redan ha sprungit i 90 till 100 minuter.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="finish" aria-labelledby="finish-title">
+        <svg viewBox="0 0 1000 330" aria-hidden="true"><path d="M-20 246 C168 251 259 111 410 130 C548 147 618 276 784 198 C873 157 912 79 1020 87" /><circle cx="800" cy="190" r="8" /></svg>
+        <div class="finish__copy">
+          <p class="act-label">Central Park · 42,195 km</p>
+          <h2 id="finish-title">Det nya börjar efter tre mil</h2>
+          <p>Almgren vet vad hans träning ger på 10 000 meter och halvmaraton. Den 1 november får han den första mätpunkten på maratondistansen.</p>
+        </div>
+      </section>
+
+      <section class="notes" aria-labelledby="notes-title">
+        <div><p class="act-label">Metod</p><h2 id="notes-title">Källor och avgränsningar</h2></div>
+        <div class="notes__body">
+          <p>Det här är en redaktionell prototyp. Banlinjen är abstraherad efter NYRR:s officiella karta. Fartjämförelsen räknar om officiella sluttider till genomsnittsfart och jämn kilometerfart. Den säger inget om Almgrens kommande maratontid. Träningsveckan visar en ofta beskriven dubbeltröskelmodell, inte ett ordagrant schema för någon av löparna. Laktatvärden är exempel från forskningslitteraturen och ska inte läsas som träningsråd. Små studier har undersökt den akuta belastningen, men visar inte att dubbeltröskel automatiskt ger bättre tävlingsresultat över tid.</p>
+          <ul>
+            <li><a href="https://www.aftonbladet.se/sportbladet/a/9pXx6E/andreas-almgren-om-sin-maratonsatsning-kandes-ratt">Aftonbladet: Almgren om beslutet att springa New York</a></li>
+            <li><a href="https://runnersworld.se/andreas-almgren-om-traningen-infor-halvmaraton-vm-och-new-york-marathon/">Runner's World Sverige: Almgrens maratonblock, LT1 och långpass</a></li>
+            <li><a href="https://podcasts.apple.com/ca/podcast/adapting-double-threshold-norwegian-method-to-the/id1587508622?i=1000786528348">Coffee Club: Almgren om att anpassa dubbeltröskeln till maraton</a></li>
+            <li><a href="https://www.podbean.com/media/share/dir-hc872-30721083">CITIUS MAG: Almgrens sju år med dubbeltröskel</a></li>
+            <li><a href="https://www.svt.se/sport/friidrott/andreas-almgren-jag-ar-absolut-en-medaljkandidat">SVT Sport: Almgrens träningslogg med fart, puls, laktat och känsla</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/36900796/">Casado m.fl.: laktatstyrd tröskelträning</a></li>
+            <li><a href="https://link.springer.com/article/10.1007/s40279-024-02067-4">Sports Medicine: norska träningsmodeller</a></li>
+            <li><a href="https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2024.1428536/full">Talsnes m.fl.: akut belastning vid ett långt eller två delade tröskelpass</a></li>
+            <li><a href="https://www.nyrr.org/tcsnycmarathon/getinspired/marathonhistory">NYRR: New York City Marathons historia</a></li>
+            <li><a href="https://worldathletics.org/disciplines/road-running-event/marathon">World Athletics: maratondistansens historia</a></li>
+            <li><a href="https://worldathletics.org/athletes/sweden/andreas-almgren-14460738">World Athletics: Almgrens officiella resultatprofil</a></li>
+            <li><a href="https://worldathletics.org/news/press-releases/ratified-world-marathon-record-kelvin-kiptum">World Athletics: Kiptums ratificerade maratonvärldsrekord</a></li>
+            <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2375555/">Joyner och Coyle: VO₂max, hållbar andel och löpekonomi</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/40375575/">Zanini m.fl.: hur kapaciteten förändras efter 90 och 120 minuters löpning</a></li>
+            <li><a href="https://doi.org/10.1136/bjsports-2023-106994">IOC: låg energitillgänglighet, hälsa och prestation</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer><a href="#top">Till start</a><span>Arbetsversion · augusti 2026</span></footer>
+  </body>
+</html>

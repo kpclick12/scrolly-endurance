@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Konceptlabb: Hur långt räcker farten?</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #f4f0e6;
+        --muted: #aaa99f;
+        --night: #0d161d;
+        --panel: #14212a;
+        --panel-2: #1b2b35;
+        --line: #ff6a3d;
+        --oxygen: #69d5ea;
+        --fuel: #d4ef77;
+        --strain: #f4ad75;
+        --edge: rgba(244, 240, 230, 0.14);
+        --shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+        background: var(--night);
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 18% 3%, rgba(105, 213, 234, 0.1), transparent 26rem),
+          linear-gradient(180deg, #0a131a 0%, var(--night) 70%, #101b22 100%);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      button, input { font: inherit; }
+      a { color: inherit; }
+
+      .masthead {
+        min-height: 92svh;
+        display: grid;
+        align-items: end;
+        padding: clamp(1.25rem, 4vw, 4rem);
+        border-bottom: 1px solid var(--edge);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .masthead::after {
+        content: "42 195 M";
+        position: absolute;
+        right: -0.04em;
+        top: 0.06em;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(244, 240, 230, 0.09);
+        font-size: clamp(5rem, 17vw, 18rem);
+        font-weight: 900;
+        letter-spacing: -0.08em;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
+      .kicker, .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--line);
+        font-size: 0.72rem;
+        font-weight: 800;
+      }
+
+      .masthead h1 {
+        max-width: 12ch;
+        margin: 0.2em 0 0.18em;
+        font-size: clamp(3.4rem, 10vw, 9rem);
+        line-height: 0.88;
+        letter-spacing: -0.07em;
+      }
+
+      .deck {
+        max-width: 43rem;
+        margin: 0;
+        color: #d7d2c6;
+        font-size: clamp(1.05rem, 2vw, 1.45rem);
+      }
+
+      .lab-note {
+        margin-top: 2rem;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .experiment {
+        display: grid;
+        grid-template-columns: minmax(0, 1.16fr) minmax(19rem, 0.84fr);
+        align-items: start;
+        max-width: 92rem;
+        margin: 0 auto;
+        border-bottom: 1px solid var(--edge);
+      }
+
+      .stage {
+        min-width: 0;
+        height: 100svh;
+        position: sticky;
+        top: 0;
+        display: grid;
+        align-content: center;
+        padding: clamp(1rem, 4vw, 4rem);
+      }
+
+      .stage-shell {
+        min-height: min(72svh, 48rem);
+        display: grid;
+        align-content: center;
+        gap: 1rem;
+        border: 1px solid var(--edge);
+        border-radius: 1.4rem;
+        background: linear-gradient(150deg, rgba(27, 43, 53, 0.94), rgba(10, 19, 26, 0.96));
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .stage-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.2rem 1.3rem 0;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .stage-label {
+        color: var(--ink);
+        font-weight: 750;
+      }
+
+      .visual {
+        width: 100%;
+        min-height: 25rem;
+        display: grid;
+        place-items: center;
+        padding: clamp(0.7rem, 3vw, 2.2rem);
+      }
+
+      svg { width: 100%; height: auto; overflow: visible; }
+
+      .steps {
+        padding: 35svh clamp(1.2rem, 4vw, 4rem) 35svh clamp(0.5rem, 2vw, 2rem);
+      }
+
+      .step {
+        min-height: 72svh;
+        display: grid;
+        align-content: center;
+      }
+
+      .step-card {
+        max-width: 31rem;
+        padding: clamp(1.2rem, 3vw, 2rem);
+        border: 1px solid var(--edge);
+        border-radius: 1.1rem;
+        background: rgba(20, 33, 42, 0.9);
+        box-shadow: 0 15px 48px rgba(0, 0, 0, 0.22);
+        opacity: 0.55;
+        transform: translateY(0.8rem);
+        transition: opacity 240ms ease, transform 240ms ease, border-color 240ms ease;
+      }
+
+      .step.is-active .step-card {
+        opacity: 1;
+        transform: translateY(0);
+        border-color: rgba(255, 106, 61, 0.55);
+      }
+
+      .step h2, .step h3 {
+        margin: 0.2rem 0 0.6rem;
+        line-height: 1.04;
+        letter-spacing: -0.04em;
+      }
+
+      .step h2 { font-size: clamp(2rem, 4vw, 3.7rem); }
+      .step h3 { font-size: clamp(1.45rem, 3vw, 2.4rem); }
+      .step p { margin: 0.7rem 0 0; color: #d6d1c6; }
+      .step strong { color: var(--ink); }
+
+      .micro {
+        color: var(--muted) !important;
+        font-size: 0.82rem;
+      }
+
+      .route-grid line {
+        stroke: rgba(244, 240, 230, 0.08);
+        vector-effect: non-scaling-stroke;
+      }
+
+      #routeGhost {
+        fill: none;
+        stroke: rgba(244, 240, 230, 0.1);
+        stroke-width: 14;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        vector-effect: non-scaling-stroke;
+      }
+
+      #routePath {
+        fill: none;
+        stroke: var(--line);
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 12px rgba(255, 106, 61, 0.34));
+        vector-effect: non-scaling-stroke;
+      }
+
+      #routeDot { fill: var(--ink); filter: drop-shadow(0 0 8px rgba(244, 240, 230, 0.8)); }
+
+      .big-year {
+        font-weight: 900;
+        font-size: 2.1rem;
+        letter-spacing: -0.04em;
+      }
+
+      .route-copy { fill: var(--muted); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+      .threshold-wrap {
+        position: relative;
+        width: 100%;
+      }
+
+      .axis { stroke: rgba(244, 240, 230, 0.28); stroke-width: 1; }
+      .curve { fill: none; stroke: var(--oxygen); stroke-width: 5; stroke-linecap: round; }
+      .curve-area { fill: url(#curveFill); opacity: 0.28; }
+      .threshold-line { stroke: rgba(244, 240, 230, 0.34); stroke-width: 1; stroke-dasharray: 5 7; }
+      .chart-label { fill: var(--muted); font-size: 12px; }
+      .chart-label.strong { fill: var(--ink); font-weight: 750; }
+      #thresholdDot { fill: var(--line); stroke: var(--ink); stroke-width: 3; transition: cx 420ms ease, cy 420ms ease; }
+      #thresholdHalo { fill: rgba(255, 106, 61, 0.12); transition: cx 420ms ease, cy 420ms ease, r 420ms ease; }
+
+      .callout {
+        position: absolute;
+        left: 8%;
+        bottom: 2%;
+        max-width: 25rem;
+        color: #d7d2c6;
+        font-size: 0.82rem;
+      }
+
+      .dashboard {
+        width: min(100%, 42rem);
+        display: grid;
+        gap: 1.6rem;
+      }
+
+      .km-readout {
+        display: flex;
+        align-items: baseline;
+        gap: 0.65rem;
+      }
+
+      #kmValue {
+        font-size: clamp(4rem, 10vw, 7rem);
+        line-height: 0.85;
+        font-weight: 900;
+        letter-spacing: -0.08em;
+      }
+
+      .km-unit { color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.75rem; }
+
+      .meter {
+        display: grid;
+        grid-template-columns: 8.5rem minmax(0, 1fr) 2.8rem;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .meter-label { font-size: 0.86rem; }
+      .meter-track { height: 0.62rem; border-radius: 99px; background: rgba(244, 240, 230, 0.11); overflow: hidden; }
+      .meter-fill { display: block; width: 50%; height: 100%; border-radius: inherit; transition: width 500ms ease; }
+      .meter-value { color: var(--muted); font-size: 0.78rem; text-align: right; font-variant-numeric: tabular-nums; }
+      .motor .meter-fill { background: var(--oxygen); }
+      .fuel .meter-fill { background: var(--fuel); }
+      .legs .meter-fill { background: var(--strain); }
+
+      .dashboard-note {
+        padding-top: 0.6rem;
+        border-top: 1px solid var(--edge);
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .verdict {
+        max-width: 62rem;
+        margin: 0 auto;
+        padding: clamp(5rem, 12vw, 11rem) clamp(1.25rem, 5vw, 4rem);
+      }
+
+      .verdict h2 {
+        max-width: 12ch;
+        margin: 0.15em 0 0.35em;
+        font-size: clamp(2.8rem, 7vw, 6.8rem);
+        line-height: 0.92;
+        letter-spacing: -0.065em;
+      }
+
+      .verdict > p { max-width: 44rem; color: #d7d2c6; font-size: 1.08rem; }
+
+      .scorecard {
+        margin-top: 3rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+      }
+
+      .score {
+        min-width: 0;
+        padding: 1.1rem;
+        border: 1px solid var(--edge);
+        border-radius: 0.9rem;
+        background: var(--panel);
+      }
+
+      .score strong { display: block; margin-bottom: 0.35rem; }
+      .score span { color: var(--muted); font-size: 0.84rem; }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (max-width: 760px) {
+        .masthead { min-height: 86svh; }
+
+        .experiment {
+          grid-template-columns: 1fr;
+          position: relative;
+        }
+
+        .stage {
+          height: 45svh;
+          min-height: 19rem;
+          z-index: 2;
+          padding: 0.6rem;
+          align-content: stretch;
+          background: var(--night);
+        }
+
+        .stage-shell {
+          min-height: 0;
+          height: 100%;
+          border-radius: 1rem;
+        }
+
+        .visual { min-height: 0; height: 100%; padding: 0.5rem 1rem 1rem; }
+        .stage-head { padding: 0.8rem 1rem 0; }
+        .steps { padding: 15svh 1rem 25svh; }
+        .step { min-height: 68svh; align-content: end; padding-bottom: 1rem; }
+        .step-card { background: rgba(20, 33, 42, 0.96); }
+        .scorecard { grid-template-columns: 1fr; }
+        .meter { grid-template-columns: 6.7rem minmax(0, 1fr) 2.3rem; gap: 0.5rem; }
+        .callout { display: none; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <div>
+        <p class="kicker">Konceptlabb · tre visuella prov</p>
+        <h1>Hur långt räcker farten?</h1>
+        <p class="deck">Ett grovt scrolltest för en story om Andreas Almgrens maratondebut, New York-banan och vad uthållighet faktiskt är.</p>
+        <p class="lab-note">Skrolla. Banformer, värden och mätare är prototyper, inte publiceringsdata.</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="experiment" data-experiment="route" aria-labelledby="route-title">
+        <div class="stage" aria-hidden="true">
+          <div class="stage-shell">
+            <div class="stage-head"><span class="stage-label">Test 1 · Linjen minns</span><span id="routeStatus">legend</span></div>
+            <div class="visual">
+              <svg viewBox="0 0 720 460" role="img" aria-label="En abstraherad linje som byter form mellan maratonets historiska banor.">
+                <g class="route-grid">
+                  <line x1="0" y1="92" x2="720" y2="92"/><line x1="0" y1="184" x2="720" y2="184"/><line x1="0" y1="276" x2="720" y2="276"/><line x1="0" y1="368" x2="720" y2="368"/>
+                  <line x1="144" y1="0" x2="144" y2="460"/><line x1="288" y1="0" x2="288" y2="460"/><line x1="432" y1="0" x2="432" y2="460"/><line x1="576" y1="0" x2="576" y2="460"/>
+                </g>
+                <path id="routeGhost" d="" />
+                <path id="routePath" d="" />
+                <circle id="routeDot" r="7" cx="0" cy="0" />
+                <text class="route-copy" x="34" y="42" id="routePlace">MARATHON → ATEN</text>
+                <text class="big-year" x="34" y="78" id="routeYear">490 f.Kr.?</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="steps">
+          <article class="step is-active" data-route="0">
+            <div class="step-card">
+              <p class="eyebrow">Legend</p>
+              <h2 id="route-title">Först var sträckan en berättelse.</h2>
+              <p>Budbäraren från Marathon till Aten är maratonets ursprungsmyt. Det moderna loppet kom långt senare.</p>
+            </div>
+          </article>
+          <article class="step" data-route="1">
+            <div class="step-card">
+              <p class="eyebrow">1896</p>
+              <h3>Aten gjorde legenden till ett lopp.</h3>
+              <p>Det första moderna olympiska maratonet var omkring 40 kilometer. Distansen var fortfarande rörlig.</p>
+            </div>
+          </article>
+          <article class="step" data-route="2">
+            <div class="step-card">
+              <p class="eyebrow">1908 → 1921</p>
+              <h3>London gav oss de extra 2 195 meterna.</h3>
+              <p>Sträckan från Windsor Castle till White City blev 42,195 kilometer och standardiserades senare.</p>
+            </div>
+          </article>
+          <article class="step" data-route="3">
+            <div class="step-card">
+              <p class="eyebrow">New York 1970</p>
+              <h3>Fyra varv i Central Park.</h3>
+              <p>Det första New York-loppet hade 127 anmälda och 55 fullföljande. Banan låg helt i parken.</p>
+            </div>
+          </article>
+          <article class="step" data-route="4">
+            <div class="step-card">
+              <p class="eyebrow">New York 1976 → 2026</p>
+              <h3>Staden blev banan.</h3>
+              <p>Fem stadsdelar, fem broar och en målgång i Central Park. Här ska Andreas Almgren göra sin maratondebut.</p>
+              <p class="micro">I produktion ersätts skissen med verifierad banlinje.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="experiment" data-experiment="threshold" aria-labelledby="threshold-title">
+        <div class="stage">
+          <div class="stage-shell">
+            <div class="stage-head"><span class="stage-label">Test 2 · Tröskeln</span><span id="thresholdStatus" aria-live="polite">under LT1</span></div>
+            <div class="visual">
+              <div class="threshold-wrap">
+                <svg viewBox="0 0 720 450" role="img" aria-labelledby="thresholdAlt">
+                  <title id="thresholdAlt">En pedagogisk kurva där blodlaktat ökar gradvis med löpfarten och brantare vid hög fart.</title>
+                  <defs>
+                    <linearGradient id="curveFill" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#69d5ea" stop-opacity="0"/>
+                      <stop offset="1" stop-color="#69d5ea" stop-opacity="0.75"/>
+                    </linearGradient>
+                  </defs>
+                  <line class="axis" x1="82" y1="370" x2="670" y2="370" />
+                  <line class="axis" x1="82" y1="370" x2="82" y2="60" />
+                  <line class="threshold-line" x1="320" y1="370" x2="320" y2="92" />
+                  <line class="threshold-line" x1="505" y1="370" x2="505" y2="92" />
+                  <path class="curve-area" d="M82,343 C210,338 300,325 375,292 C455,257 500,214 540,157 C575,108 615,78 670,67 L670,370 L82,370 Z" />
+                  <path class="curve" d="M82,343 C210,338 300,325 375,292 C455,257 500,214 540,157 C575,108 615,78 670,67" />
+                  <circle id="thresholdHalo" r="28" cx="215" cy="334" />
+                  <circle id="thresholdDot" r="10" cx="215" cy="334" />
+                  <text class="chart-label" x="640" y="408">FART →</text>
+                  <text class="chart-label" x="22" y="54">BLODLAKTAT</text>
+                  <text class="chart-label strong" x="292" y="404">LT1</text>
+                  <text class="chart-label strong" x="477" y="404">LT2</text>
+                  <text class="chart-label" x="118" y="320">balans</text>
+                  <text class="chart-label" x="524" y="128">snabb ökning</text>
+                </svg>
+                <p class="callout">Kurvan visar ett mönster, inte Almgrens testvärden. Exakta tröskeldefinitioner varierar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="steps">
+          <article class="step" data-threshold="0">
+            <div class="step-card">
+              <p class="eyebrow">Kontrollerat</p>
+              <h2 id="threshold-title">Laktat finns redan från första steget.</h2>
+              <p>Under låg och måttlig belastning kan kroppen använda och transportera bort laktat ungefär i takt med att det bildas.</p>
+            </div>
+          </article>
+          <article class="step" data-threshold="1">
+            <div class="step-card">
+              <p class="eyebrow">LT1</p>
+              <h3>Den första tröskeln är en markör, inte en vägg.</h3>
+              <p>När farten ökar börjar blodlaktatet stiga över den låga basnivån. Var gränsen dras beror på testmetod.</p>
+            </div>
+          </article>
+          <article class="step" data-threshold="2">
+            <div class="step-card">
+              <p class="eyebrow">Mellan trösklarna</p>
+              <h3>Lite mer fart kan kosta mycket mer.</h3>
+              <p>Arbetet är fortfarande huvudsakligen aerobt, men kravet på kolhydrater och återhämtning stiger. Hur länge farten går att hålla krymper.</p>
+            </div>
+          </article>
+          <article class="step" data-threshold="3">
+            <div class="step-card">
+              <p class="eyebrow">Över LT2</p>
+              <h3>Laktat är budbäraren, inte boven.</h3>
+              <p>En snabb ökning visar att produktion och borttransport inte längre är i jämvikt. Tröttheten har flera orsaker. Att kalla allt för ”mjölksyra” döljer mer än det förklarar.</p>
+            </div>
+          </article>
+          <article class="step" data-threshold="1">
+            <div class="step-card">
+              <p class="eyebrow">Almgrens skifte</p>
+              <h3>Inför maran flyttar han fokus nedåt.</h3>
+              <p>Almgren säger att han redan har VO2max- och 10 000-meterskapaciteten. I maratonblocket prioriterar han LT1 och långpassen.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="experiment" data-experiment="budgets" aria-labelledby="budget-title">
+        <div class="stage">
+          <div class="stage-shell">
+            <div class="stage-head"><span class="stage-label">Test 3 · Tre begränsningar</span><span id="budgetStatus">Staten Island</span></div>
+            <div class="visual">
+              <div class="dashboard" role="img" aria-labelledby="budgetAlt">
+                <p id="budgetAlt" class="sr-only">Tre konceptuella mätare visar hur kontrollerbar intensitet, tillgänglig kolhydratenergi och benens hållbarhet förändras under ett maraton.</p>
+                <div class="km-readout"><strong id="kmValue">0</strong><span class="km-unit">kilometer</span></div>
+                <div class="meter motor"><span class="meter-label">Kontrollerbar fart</span><span class="meter-track"><span class="meter-fill" id="motorFill"></span></span><span class="meter-value" id="motorValue">96%</span></div>
+                <div class="meter fuel"><span class="meter-label">Kolhydrattillgång</span><span class="meter-track"><span class="meter-fill" id="fuelFill"></span></span><span class="meter-value" id="fuelValue">100%</span></div>
+                <div class="meter legs"><span class="meter-label">Benens hållbarhet</span><span class="meter-track"><span class="meter-fill" id="legsFill"></span></span><span class="meter-value" id="legsValue">100%</span></div>
+                <p class="dashboard-note">Illustrativ modell. Värdena är inte mätningar eller en prognos för Almgren.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="steps">
+          <article class="step" data-budget="0">
+            <div class="step-card">
+              <p class="eyebrow">Starten</p>
+              <h2 id="budget-title">Ett maraton har inte en enda tank.</h2>
+              <p>En löpare kan ha gott om energi men ändå springa för fort. Eller ligga rätt i intensitet men få slut på användbart bränsle och hållbara steg.</p>
+            </div>
+          </article>
+          <article class="step" data-budget="1">
+            <div class="step-card">
+              <p class="eyebrow">Halvvägs</p>
+              <h3>Det kan fortfarande kännas billigt.</h3>
+              <p>Det är här fel fart är farlig: kostnaden syns senare. New York brukar dessutom bjuda på ett mer taktiskt förstavarv än rena rekordbanor.</p>
+            </div>
+          </article>
+          <article class="step" data-budget="2">
+            <div class="step-card">
+              <p class="eyebrow">First Avenue</p>
+              <h3>Energiintag är en träningsbar färdighet.</h3>
+              <p>Almgren har övat på att dricka under intervaller och ta stora mängder kolhydrat under långpass. Strategin är individuell, inte ett allmänt kostråd.</p>
+            </div>
+          </article>
+          <article class="step" data-budget="3">
+            <div class="step-card">
+              <p class="eyebrow">Bronx</p>
+              <h3>Bränsle räddar inte ben som tappat steget.</h3>
+              <p>Därför blir långpassen mer specifika. Almgren vill avsluta fort efter att redan ha sprungit i 90–100 minuter.</p>
+            </div>
+          </article>
+          <article class="step" data-budget="4">
+            <div class="step-card">
+              <p class="eyebrow">Central Park</p>
+              <h3>Här bör modellen ta slut.</h3>
+              <p>Efter 35 kilometer finns inget facit för en debutant. Visualen ska lämna plats för osäkerheten, inte låtsas räkna ut ett resultat.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="verdict">
+        <p class="kicker">Arbetsdom</p>
+        <h2>Behåll linjen. Släpp kartan när kroppen tar över.</h2>
+        <p>Det starkaste upplägget är en hybrid: en kort historisk morph, New York-banan som dramaturgisk ryggrad, en tydlig zoom till tröskel och uthållighet, och sedan tillbaka till loppet inför den osäkra avslutningen.</p>
+        <div class="scorecard" aria-label="Bedömning av tre testade grepp">
+          <div class="score"><strong>Linjemorphen</strong><span>Stark öppning. Behåll, men håll historien kort.</span></div>
+          <div class="score"><strong>Tröskelkurvan</strong><span>Bär djupet. Kräver expertgranskning och tydliga definitioner.</span></div>
+          <div class="score"><strong>Tre mätare</strong><span>Bra orientering. Måste förbli kvalitativ för att inte låtsasprecision uppstår.</span></div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const routeStates = [
+        {
+          status: 'legend', place: 'MARATHON → ATEN', year: '490 f.Kr.?',
+          points: [[70,340],[105,322],[140,330],[175,304],[210,312],[245,288],[280,296],[315,270],[350,279],[385,252],[420,260],[455,236],[490,244],[525,220],[560,228],[595,204],[650,214]]
+        },
+        {
+          status: 'omkring 40 km', place: 'MARATHON → ATEN', year: '1896',
+          points: [[70,346],[108,327],[146,337],[184,312],[222,318],[260,294],[298,302],[336,280],[374,288],[412,264],[450,273],[488,247],[526,256],[564,230],[602,237],[628,218],[650,204]]
+        },
+        {
+          status: '42,195 km', place: 'WINDSOR → WHITE CITY', year: '1908',
+          points: [[74,315],[104,284],[138,295],[171,255],[210,268],[248,238],[284,247],[318,215],[355,231],[392,205],[430,219],[466,189],[505,204],[540,173],[580,190],[615,160],[650,174]]
+        },
+        {
+          status: 'fyra parkvarv', place: 'CENTRAL PARK', year: '1970',
+          points: [[220,330],[170,290],[170,190],[230,135],[360,122],[485,165],[535,245],[500,320],[405,350],[300,328],[245,282],[230,210],[280,160],[390,154],[470,198],[480,270],[430,316]]
+        },
+        {
+          status: 'fem stadsdelar', place: 'STATEN ISLAND → CENTRAL PARK', year: '2026',
+          points: [[95,350],[145,305],[190,266],[240,278],[290,318],[348,300],[390,245],[430,208],[492,205],[525,160],[565,112],[594,150],[576,220],[620,268],[565,305],[500,272],[455,228]]
+        }
+      ];
+
+      const pathFromPoints = points => `M${points.map(point => point.join(',')).join(' L')}`;
+      const routePath = document.querySelector('#routePath');
+      const routeGhost = document.querySelector('#routeGhost');
+      const routeDot = document.querySelector('#routeDot');
+      let routePoints = routeStates[0].points.map(point => [...point]);
+      let routeFrame;
+
+      function renderRoute(points) {
+        const d = pathFromPoints(points);
+        routePath.setAttribute('d', d);
+        routeGhost.setAttribute('d', d);
+        const end = points[points.length - 1];
+        routeDot.setAttribute('cx', end[0]);
+        routeDot.setAttribute('cy', end[1]);
+      }
+
+      function setRoute(index) {
+        const state = routeStates[index];
+        document.querySelector('#routeStatus').textContent = state.status;
+        document.querySelector('#routePlace').textContent = state.place;
+        document.querySelector('#routeYear').textContent = state.year;
+        cancelAnimationFrame(routeFrame);
+        if (reducedMotion) {
+          routePoints = state.points.map(point => [...point]);
+          renderRoute(routePoints);
+          return;
+        }
+        const start = routePoints.map(point => [...point]);
+        const startTime = performance.now();
+        const duration = 650;
+        const animate = now => {
+          const raw = Math.min(1, (now - startTime) / duration);
+          const t = 1 - Math.pow(1 - raw, 3);
+          routePoints = start.map((point, i) => [
+            point[0] + (state.points[i][0] - point[0]) * t,
+            point[1] + (state.points[i][1] - point[1]) * t
+          ]);
+          renderRoute(routePoints);
+          if (raw < 1) routeFrame = requestAnimationFrame(animate);
+        };
+        routeFrame = requestAnimationFrame(animate);
+      }
+
+      renderRoute(routePoints);
+
+      const thresholdStates = [
+        { x: 215, y: 334, halo: 28, label: 'under LT1' },
+        { x: 320, y: 316, halo: 31, label: 'kring LT1' },
+        { x: 430, y: 268, halo: 35, label: 'mellan LT1 och LT2' },
+        { x: 565, y: 121, halo: 44, label: 'över LT2' }
+      ];
+
+      function setThreshold(index) {
+        const state = thresholdStates[index];
+        document.querySelector('#thresholdStatus').textContent = state.label;
+        document.querySelector('#thresholdDot').setAttribute('cx', state.x);
+        document.querySelector('#thresholdDot').setAttribute('cy', state.y);
+        document.querySelector('#thresholdHalo').setAttribute('cx', state.x);
+        document.querySelector('#thresholdHalo').setAttribute('cy', state.y);
+        document.querySelector('#thresholdHalo').setAttribute('r', state.halo);
+      }
+
+      const budgetStates = [
+        { km: '0', place: 'Staten Island', motor: 96, fuel: 100, legs: 100 },
+        { km: '21,1', place: 'Pulaski Bridge', motor: 84, fuel: 73, legs: 79 },
+        { km: '29', place: 'First Avenue', motor: 72, fuel: 57, legs: 61 },
+        { km: '34', place: 'Bronx', motor: 61, fuel: 43, legs: 38 },
+        { km: '40', place: 'Central Park', motor: 48, fuel: 30, legs: 17 }
+      ];
+
+      function setBudget(index) {
+        const state = budgetStates[index];
+        document.querySelector('#budgetStatus').textContent = state.place;
+        document.querySelector('#kmValue').textContent = state.km;
+        ['motor', 'fuel', 'legs'].forEach(key => {
+          document.querySelector(`#${key}Fill`).style.width = `${state[key]}%`;
+          document.querySelector(`#${key}Value`).textContent = `${state[key]}%`;
+        });
+      }
+
+      function activate(step) {
+        const parent = step.closest('.steps');
+        parent.querySelectorAll('.step').forEach(item => item.classList.toggle('is-active', item === step));
+        if (step.dataset.route !== undefined) setRoute(Number(step.dataset.route));
+        if (step.dataset.threshold !== undefined) setThreshold(Number(step.dataset.threshold));
+        if (step.dataset.budget !== undefined) setBudget(Number(step.dataset.budget));
+      }
+
+      const observer = new IntersectionObserver(entries => {
+        entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+          .slice(0, 1)
+          .forEach(entry => activate(entry.target));
+      }, { rootMargin: '-38% 0px -38% 0px', threshold: [0, 0.2, 0.6] });
+
+      document.querySelectorAll('.step').forEach(step => observer.observe(step));
+      setRoute(0);
+      setThreshold(0);
+      setBudget(0);
+    </script>
+  </body>
+</html>
