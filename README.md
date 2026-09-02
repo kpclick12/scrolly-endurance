@@ -1,21 +1,22 @@
-# Almgrens första maraton
+# Almgren i New York
 
-En första statisk scrollytelling-prototyp om Andreas Almgrens maratondebut i New York. Den börjar med satsningen, följer sedan en slingrande New York-bana genom maratonets historia och gör elitfarten fysisk i en jämförande löpbandsscen. Därefter växlar den till prestationsfysiologi, dubbeltröskel och Almgrens maratonspecifika träning.
+En fristående scrollytelling-prototyp om Andreas Almgrens maratondebut och frågan om New Yorks banrekord. Berättelsen använder banan genom staden som historisk tidslinje, verkliga sluttider från 2025, ett 400-metersbaserat farttest, originalritad fysiologi och en schematisk träningsdel. Formspråket hämtar färgdisciplin, högkontrasttypografi och resultatband från en New York Marathon-affisch från 1984. En återkommande mätlinje binder ihop berättelsens olika skalor.
 
 ## Starta lokalt
 
-Projektet har inga externa beroenden. Servera mappen lokalt, till exempel:
+Projektet har inga externa beroenden.
 
 ```bash
-python3 -m http.server 4173 --bind 127.0.0.1
+python3 -m http.server 4174 --bind 127.0.0.1
 ```
 
-Öppna sedan `http://127.0.0.1:4173/`.
+Öppna `http://127.0.0.1:4174/`.
 
 ## Filer
 
-- `index.html`: berättelse och semantisk struktur
-- `styles.css`: layout, visuell identitet och responsiva kompositioner
-- `app.js`: den scrollstyrda banan, fysiologiska tillstånd och träningsveckans scenbyten
-- `planning/story-plan.md`: redaktionell plan och källbas
-- `planning/concept-lab.html`: tidigare visuellt koncepttest
+- `index.html`: berättelse, SVG-scener, källor och semantisk struktur
+- `styles.css`: redaktionell form, sticky-layouter och mobilkomposition
+- `app.js`: kartscroll, diagramzoom och den matematiska 400-metersanimationen
+- `planning/story-plan.md`: redaktionell idé, rörelser, data och avgränsningar
+
+Lägg till `?motion=reduce` för att kontrollera versionen utan övergångsrörelser.

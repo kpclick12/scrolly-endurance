@@ -1,94 +1,66 @@
-# Almgrens första maraton
+# Kommer Almgren att slå banrekordet i New York Marathon?
 
-Arbetsversion, 30 augusti 2026
+Arbetsversion, 2 september 2026
 
-## Det läsaren ska förstå
+## En sak att minnas
 
-Andreas Almgren har redan farten. Maratonsatsningen handlar om hur mycket av den som finns kvar efter tre mil. Den frågan leder från maratonets historia via en fysisk fartjämförelse till fysiologin och vidare till hans träningsmetod.
+Andreas Almgren har redan farten. Den öppna frågan är om han kan behålla tillräckligt mycket av den i 42 195 meter på New Yorks bana för att hota 2:04:58.
 
-## Form
+## Berättelsens rörelser
 
-Berättelsen använder en slingrande väg som i Johans referensbild, men vägen är New York-banan och milstolparna är historiska nedslag. Formen används bara där den hjälper: efter historiken rätas vägen ut till en fysiologisk modell och därefter till en träningsvecka.
+1. **Frågan.** Almgrens 10-kilometers- och halvmaratontider står bredvid New Yorks banrekord. Hans maratonruta är tom.
+2. **Banan.** En schematisk New York-karta följer loppets verkliga ordning genom fem stadsdelar. Sex stopp bär maratonets historia från legenden till Almgrens debut.
+3. **Fältet.** 56 381 löpartider från 2025 bildar en fördelningskurva. Kameran går från hela fältet till den lilla elitkanten.
+4. **Farten.** Tre löpare startar tillsammans på en tänkt 400-metersbana. En fyratimmarslöpare varvas efter 2:10,7 av Almgrens halvmaratonfart och efter 2:28,3 av New Yorks rekordfart.
+5. **Kroppen.** En kvarliggande illustration växlar mellan mekanik, syretransport, löpekonomi och förmågan att behålla dem efter 30 kilometer.
+6. **Träningen.** Omkring 200 kilometer per vecka leder till dubbeltröskel, laktatstyrning och 35–40 kilometer långa maratonspecifika pass.
+7. **Den tomma tiden.** Banrekordet visas igen bredvid Almgrens ännu okända maratontid.
 
-### 1. Almgren först
+## Visuell princip
 
-En kort redaktionell öppning presenterar nyheten:
+- Formen hämtar sin disciplin från 1984 års New York Marathon-affisch: varm pappersyta, svart högkontrasttypografi och koncentrerade fält av färg där loppet eller mätningen pågår.
+- **Mätlinjen** är berättelsens visuella ryggrad. Den börjar som vägen mot Almgrens tomma maratonruta, blir New York-banan, fördelningskurvan, 400-metersovalen, kroppens mätstråk, träningsmängden och slutligen linjen fram till den ännu okända tiden.
+- Textsystemet är en familj, inte ett enda kort: öppen affischtypografi i intro och kapitelstarter, tävlingskort i historien, målgångsremsor för jämförbara tider och tekniska marginalnoter för kropp och träning.
+- Ingen 3D i första versionen. SVG gör banan, kroppens system och exakta rörelser lättare att läsa och billigare att köra på mobil.
+- Rödorange betyder fart, rekord eller aktiv mätning. Blått betyder vatten, syre eller referens. Grönt betyder bana och uthållighet. Gult används sparsamt för energi eller en kontrollpunkt.
+- Bara en mättad färg ska dominera ett ögonblick. Målad textur hör hemma i visualer och övergångar, inte bakom löpande text.
+- Siffermarkeringar används endast när ett tal bär nästa resonemang.
+- Zoom används för att byta skala, inte som dekoration: från hela New York-banan till en plats, och från hela tidsfördelningen till elitens vänsterkant.
+- På desktop står text och visual bredvid varandra. På mobil ligger visualen kvar upptill och texten går in under den som en hel affischyta. Historiekorten är det enda tydligt fristående kortsystemet.
 
-- EM-guld på 10 000 meter;
-- maratondebut i New York den 1 november 2026;
-- 26:45 på 10 kilometer och 58:41 på halvmaraton;
-- maratonrutan är ännu tom;
-- hans skäl: New York är ett lopp snarare än ett jämnt farthållarstyrt tidsförsök.
+## Analogi och metafor
 
-Öppningen ska locka in läsaren innan bakgrunden börjar. Den ska inte börja med maratonhistorien.
+- Historiedelen har två samtidiga skalor: kilometer under fötterna och årtal i korten. Korten märks som historiska nedslag så att geografi och historia inte blandas ihop.
+- 400-meterslöparna fungerar som tre metronomer. Varvtiden, inte en dramatisk effekt, visar skillnaden i rytm.
+- Syretransporten förklaras som en sammanhängande logistikkedja från luft till arbetande muskel.
+- Löpekonomi är kostnaden för samma fart. Laktatmätning är återkoppling på belastningen, ungefär som en instrumentpanel, inte en giftmätare.
+- Efter 30 kilometer hålls språket konkret. Batteri-, bränsletank- och motorbilder används inte eftersom de förenklar fysiologin för mycket.
 
-### 2. New York-banan blir maratonets historia
+## Data och beräkningar
 
-En bred väg slingrar sig från Staten Island till Central Park. Löparen och vägmarkeringen rör sig framåt. Sex numrerade milstolpar ligger på banan:
+Fördelningen använder 15-minutersintervall från ett publikt dataset med 56 381 löpartider i New York Marathon 2025. 99 rullstols- och handcykelresultat har tagits bort med startnummerserien som klassmarkör. NYRR redovisar 59 226 officiellt fullföljande. Runner’s World anger medeltiden 4:32:25. Löparurvalets medelvärde är 4:32:45. De viktigaste härledda värdena är:
 
-1. budbärarlegenden, cirka 490 f.Kr.;
-2. Aten 1896, omkring 40 kilometer;
-3. London 1908 och 42 195 meter;
-4. New York 1970, fyra varv i Central Park;
-5. five-borough-banan 1976;
-6. Almgrens start 2026.
+- vanligaste intervall: 3:45–4:00, 6 241 löpare eller 11,1 procent
+- under tre timmar: 2 396 löpare eller 4,2 procent
+- fyratimmarsfart: 10,549 km/h och 2:16,51 per 400 meter
+- banrekordsfart 2:04:58: 20,259 km/h och 1:11,08 per 400 meter
+- Almgrens 58:41-fart: 21,571 km/h och 1:06,76 per 400 meter
 
-Texten ligger direkt i scenen. Inga kortbakgrunder.
+400-metersscenen räknar positionen som `(fart i meter per sekund × tid) modulo 400`. Den antar konstant genomsnittsfart och ska inte läsas som New York-banans faktiska fartprofil eller en prognos för Almgrens maraton.
 
-### 3. Hur fort är världselitens fart?
+## Material som lämnats bort
 
-En låg perspektivkamera följer en löpare på ett tänkt löpband. Läsaren väljer själv fart, med 16 km/h som startvärde.
+- den generiska perspektivvägen och löpbandsreglaget
+- den tidigare abstrakta prestationsformeln
+- jämförelsekort mellan namngivna löpare
+- Three.js och dekorativ 3D
+- en synlig lång källista mitt i berättelsen
+- det fristående konceptlabbet
 
-Fyra rörelser:
+## Redaktionella gränser
 
-1. 16 km/h motsvarar 3:45 per kilometer;
-2. Almgrens halvmaratonrekord 58:41 motsvarar 21,6 km/h och 2:47 per kilometer;
-3. när Almgren har sprungit 21,1 kilometer når 16-farten 15,6 kilometer;
-4. maratonvärldsrekordet 2:00:35 motsvarar nästan exakt 21 km/h i drygt två timmar.
-
-Jämförelsen bygger på genomsnittsfart från officiella sluttider. Den är inte en prognos för Almgrens debut och inte en beskrivning av ett träningspass.
-
-Första versionen använder CSS-perspektiv och vanlig HTML i stället för Three.js. 3D blir motiverat först om den verkliga banans höjd, broar eller kamerarörelse genom New York blir en del av förklaringen. En generisk 3D-värld skulle göra scenen tyngre utan att göra jämförelsen tydligare.
-
-### 4. Vad gör en bra maratonlöpare?
-
-Vägen rätas ut till en 42,195 kilometer lång modell:
-
-```text
-fart ≈ syre × hållbar andel / kostnad
-```
-
-- VO₂max visar det aeroba taket.
-- Tröskel och uthållighet visar hur stor del av taket som kan användas länge.
-- Löpekonomi visar syre- och energikostnaden vid en bestämd fart.
-- Kroppsmassa visas som last i systemet, inte som en poäng eller idealvikt.
-- Efter cirka 30 kilometer börjar linjen tappa höjd. Det visar durability: hur lite kapaciteten försämras efter lång belastning.
-
-Detta är en pedagogisk modell, inte en prognos av Almgrens maratontid.
-
-### 5. Dubbeltröskeln
-
-Den raka distanslinjen blir en träningsvecka. Två dagar innehåller ett kontrollerat tröskelpass både förmiddag och eftermiddag.
-
-Fyra rörelser:
-
-1. dubbeltröskel samlar mycket tröskelarbete på två hårda dagar;
-2. laktatprov används som fartbegränsare, inte som mål;
-3. metoden förknippas med Ingebrigtsen-brödernas miljö och har använts av Almgren sedan 2019;
-4. maratonblocket avviker från grundmodellen genom längre pass, lägre intensitet, mer LT1, energi under löpning och snabb avslutning efter 90 till 100 minuter.
-
-Den illustrerade veckan är ett exempel från beskrivningar av den norska modellen. Den får inte presenteras som Jakobs eller Almgrens exakta vecka 2026.
-
-### 6. Central Park
-
-Banlinjen återkommer. Almgren känner sin kapacitet på 10 000 meter och halvmaraton. New York ger honom den första riktiga datapunkten efter 42 195 meter.
-
-## Vetenskapliga avgränsningar
-
-- De klassiska prestationsfaktorerna är VO₂max, hållbar andel/tröskel och löpekonomi.
-- Kroppsmassa påverkar kostnaden men ”lättare är bättre” är inte ett försvarbart generellt råd. Låg energitillgänglighet kan försämra hälsa och prestation.
-- Tröskeldefinitioner varierar. Ett universellt laktatvärde ska inte användas.
-- Dubbeltröskel är väldokumenterad elitpraxis. Det saknas bevis för att upplägget automatiskt ger bättre tävlingsresultat på lång sikt.
-- Laktat är en markör och del av energiomsättningen, inte ett gift som fyller muskeln.
-
-Full källista och begränsningar finns i prototypens metoddel.
+- Rubriken är en journalistisk fråga. Almgren har inte offentligt lovat ett rekordförsök.
+- 58:41 är halvmaratonfart, inte en maratonprognos.
+- Inget exakt VO₂max-värde tillskrivs Almgren. Intervallet 70–85 ml/kg/min kommer från publicerade studier av manlig maratonelit.
+- Träningsveckan är en principbild. Den gör inte anspråk på att återge hans exakta vecka.
+- Laktatmätning beskrivs som återkoppling. Inget universellt målvärde anges.
