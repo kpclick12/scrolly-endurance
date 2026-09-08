@@ -1,6 +1,6 @@
 # Kommer Almgren att slå banrekordet i New York Marathon?
 
-Arbetsversion, 2 september 2026
+Arbetsversion, 6 september 2026
 
 ## En sak att minnas
 
@@ -12,13 +12,13 @@ Andreas Almgren har redan farten. Den öppna frågan är om han kan behålla til
 2. **Banan.** En schematisk New York-karta följer loppets verkliga ordning genom fem stadsdelar. Sex stopp bär maratonets historia från legenden till Almgrens debut.
 3. **Fältet.** 56 381 löpartider från 2025 bildar en fördelningskurva. Kameran går från hela fältet till den lilla elitkanten.
 4. **Farten.** Tre löpare startar tillsammans på en tänkt 400-metersbana. En fyratimmarslöpare varvas efter 2:10,7 av Almgrens halvmaratonfart och efter 2:28,3 av New Yorks rekordfart.
-5. **Kroppen.** En kvarliggande illustration växlar mellan mekanik, syretransport, löpekonomi och förmågan att behålla dem efter 30 kilometer.
-6. **Träningen.** Omkring 200 kilometer per vecka leder till dubbeltröskel, laktatstyrning och 35–40 kilometer långa maratonspecifika pass.
+5. **Kroppen.** En anatomisk plansch visar löparen med ett förstorat utsnitt av vad och hälsena. Nästa steg följer syret genom lungor, hjärta och muskel. Samma löparbild återkommer i en jämförelse av syrebehov vid 18 km/h. En lugn, illustrativ kurva avslutar med förmågan att behålla farten.
+6. **Träningen.** En linjerad träningsdagbok ligger kvar medan scrollningen fokuserar fyra anteckningar: cirka 200 kilometer per vecka, dubbeltröskel, laktatkontroll och 35–40 kilometer långa långpass. Ett illustrativt veckoschema finns på vänstersidan. På mobil visas anteckningssidan ensam för att hålla texten läsbar. Kort kursiv marginaltext och rödbruna pennmarkeringar ger bokkänsla utan att brödtexten blir handskriven.
 7. **Den tomma tiden.** Banrekordet visas igen bredvid Almgrens ännu okända maratontid.
 
 ## Visuell princip
 
-- Formen hämtar sin disciplin från 1984 års New York Marathon-affisch: varm pappersyta, svart högkontrasttypografi och koncentrerade fält av färg där loppet eller mätningen pågår.
+- Formen hämtar sin disciplin från 1984 års New York Marathon-affisch: vit eller neutralt ljusgrå pappersyta, svart högkontrasttypografi och koncentrerade fält av färg där loppet eller mätningen pågår. Ingen beige patina, inte heller i träningsboken. Affischens blått, rött, grönt och gult används som begränsade accenter.
 - **Mätlinjen** är berättelsens visuella ryggrad. Den börjar som vägen mot Almgrens tomma maratonruta, blir New York-banan, fördelningskurvan, 400-metersovalen, kroppens mätstråk, träningsmängden och slutligen linjen fram till den ännu okända tiden.
 - Textsystemet är en familj, inte ett enda kort: öppen affischtypografi i intro och kapitelstarter, tävlingskort i historien, målgångsremsor för jämförbara tider och tekniska marginalnoter för kropp och träning.
 - Ingen 3D i första versionen. SVG gör banan, kroppens system och exakta rörelser lättare att läsa och billigare att köra på mobil.
@@ -61,6 +61,19 @@ Fördelningen använder 15-minutersintervall från ett publikt dataset med 56 38
 
 - Rubriken är en journalistisk fråga. Almgren har inte offentligt lovat ett rekordförsök.
 - 58:41 är halvmaratonfart, inte en maratonprognos.
-- Inget exakt VO₂max-värde tillskrivs Almgren. Intervallet 70–85 ml/kg/min kommer från publicerade studier av manlig maratonelit.
+- Inget VO₂max-värde tillskrivs Almgren. Syretransporten förklaras utan ett sifferintervall som kan förväxlas med hans mätvärde.
+- Anatomiplanscherna är AI-genererade pedagogiska illustrationer. Löpbilden visar ett exempel på frånskjut, ingen ideal löpstil. Hälsenans fjäderanalogi förklarar återförd energi utan att antyda att musklerna slutar arbeta.
+- Löpekonomin jämför syrebehov per kilo kroppsvikt vid samma fart. Staplarnas längder är illustrativa, inte data. Uthållighetskurvan har ingen numerisk y-axel och trettio kilometer är ingen biologisk gräns.
 - Träningsveckan är en principbild. Den gör inte anspråk på att återge hans exakta vecka.
 - Laktatmätning beskrivs som återkoppling. Inget universellt målvärde anges.
+
+
+## Återföring 8 september
+Den senaste arbetskopian från cfdd har återförts: affischstart, anatomiska bildplanscher, träningsbok och deras tillgänglighetslogik. Förfiningar läggs ovanpå: sval bas, nummerlappar, fyra fartnivåer, kartdetaljer, målband och subtil animation av de befintliga anatomibilderna.
+
+
+## Träningslogg och målgång, 8 september
+Tre Luna-agenter granskade Almgren, Bakken och andra elitlöpare. Se `training-research.md`. Dagboken visar källbelagda pass från tydligt åtskilda perioder. Avslutet ramas in som ett målområde i HTML/CSS. Tom tidtavla för Almgren, separata rekorduppgifter, målstolpar och mållinje. Ingen löparbild används. Originalpostern och anatomibilderna är kvar.
+
+## Varsam koncentrering av berättelsen
+Historien har fyra stopp; de olympiska distanserna och New Yorks två tidiga banversioner är sammanslagna. Kartans hållpunkter och skyltar följer de fyra stoppen. Fartsektionen har kortare tolkningar medan exakta tider och avstånd finns kvar i visualen. Övergången till träningen återknyter till Almgrens fart, energiintaget får en kort AIS-källbelagd förklaring och målrubriken knyter ihop rekordet med distansen. Visuell form och befintliga illustrationer bevaras.

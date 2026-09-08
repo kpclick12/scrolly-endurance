@@ -20,3 +20,7 @@ python3 -m http.server 4174 --bind 127.0.0.1
 - `planning/story-plan.md`: redaktionell idé, rörelser, data och avgränsningar
 
 Lägg till `?motion=reduce` för att kontrollera versionen utan övergångsrörelser.
+
+Formpass september 2026: blågrå bas, nummerlappar vid historiska stopp, fyra fartnivåer, animerad fysiologi, träningsdagbok och målband. Handstilen Caveat laddas lokalt från `assets/fonts/`; licensen ligger i samma mapp.
+
+Träningsdagboken visar nu källbelagda pass från Almgren och Bakken, med en fördjupning om Ingebrigtsen och Moen. Se `planning/training-research.md`. Avslutet är ett målområde byggt i HTML/CSS med en tom tidtavla för Almgren.

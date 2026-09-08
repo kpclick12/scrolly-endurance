@@ -76,27 +76,20 @@ const milestones = document.querySelector("#milestones");
 const routeReadout = document.querySelector("#route-km");
 const historyBar = document.querySelector("#history-bar");
 const historySteps = [...document.querySelectorAll(".history-step")];
-const routeD = "M117 700 C151 666 180 645 205 624 C230 602 251 563 270 520 C290 473 301 425 330 391 C360 356 393 339 430 316 C457 299 480 301 511 287 C542 273 569 250 597 239 C622 227 636 196 642 160 C649 119 671 94 702 86 C730 79 753 61 776 75 C799 90 790 124 765 138 C746 149 730 144 712 142 C691 140 679 164 672 198 C664 236 661 282 649 326 C639 369 627 410 615 447 C603 482 577 501 583 529 C589 558 626 565 647 540 C666 518 684 500 700 506";
-const milestoneFractions = [.025, .22, .41, .59, .79, .985];
-const desktopViewBoxes = [
-  [28, 510, 400, 290],
-  [142, 326, 520, 410],
-  [330, 184, 470, 350],
-  [515, 42, 390, 300],
-  [585, 12, 330, 330],
-  [512, 340, 330, 310]
-];
-const mobileViewBoxes = [
-  [32, 468, 390, 490],
-  [128, 292, 500, 628],
-  [302, 132, 460, 578],
-  [488, 12, 390, 490],
-  [554, 0, 350, 440],
-  [490, 287, 350, 440]
-];
-
+const routeD = "M117 700 L205 624 L270 520 L330 391 L430 316 L527 297 L578 275 L615 241 L681 208 L753 79 L813 70 L835 108 L783 155 L732 173 L708 270 L684 375 L672 441 L653 530 L685 550 L713 521 L722 493";
+const stopCoordinates = [[117,700], [578,275], [813,70], [722,493]];
+const stopKilometres = [0, 21.1, 32, 42.195];
 [routeRoad, routeShadow, routeProgress, routeCentre].forEach(path => path.setAttribute("d", routeD));
 const routeLength = routeProgress.getTotalLength();
+const milestoneFractions = stopCoordinates.map(([x,y]) => {
+  let nearest = 0, distance = Infinity;
+  for (let n = 0; n <= 3000; n++) {
+    const p = routeProgress.getPointAtLength(routeLength * n / 3000);
+    const d = Math.hypot(p.x-x, p.y-y);
+    if (d < distance) { distance = d; nearest = n / 3000; }
+  }
+  return nearest;
+});
 routeProgress.style.strokeDasharray = `${routeLength}`;
 routeProgress.style.strokeDashoffset = `${routeLength}`;
 
@@ -119,20 +112,15 @@ const packNodes = [0, .012, .025, .04].map((offset, index) => {
 
 let activeHistoryIndex = -1;
 
-function interpolateViewBox(progress) {
-  const boxes = window.innerWidth <= 820 ? mobileViewBoxes : desktopViewBoxes;
-  const scaled = clamp(progress) * (boxes.length - 1);
-  const index = Math.min(boxes.length - 2, Math.floor(scaled));
-  const local = scaled - index;
-  return boxes[index].map((value, propertyIndex) => lerp(value, boxes[index + 1][propertyIndex], local));
-}
-
 function updateHistory() {
   if (!historySection) return;
   const rect = historySection.getBoundingClientRect();
   const travel = Math.max(1, rect.height - window.innerHeight);
   const progress = clamp(-rect.top / travel);
-  const routeFraction = progress;
+  const segmentCount = milestoneFractions.length - 1;
+  const segment = Math.min(segmentCount - 1, Math.floor(progress * segmentCount));
+  const local = progress * segmentCount - segment;
+  const routeFraction = lerp(milestoneFractions[segment], milestoneFractions[segment + 1], local);
   const activeIndex = Math.min(historySteps.length - 1, Math.max(0, Math.round(progress * (historySteps.length - 1))));
 
   routeProgress.style.strokeDashoffset = `${routeLength * (1 - routeFraction)}`;
@@ -142,12 +130,23 @@ function updateHistory() {
     node.setAttribute("cx", point.x);
     node.setAttribute("cy", point.y);
   });
-  routeReadout.textContent = (routeFraction * 42.195).toFixed(1).replace(".", ",");
+  routeReadout.textContent = lerp(stopKilometres[segment], stopKilometres[segment + 1], local).toFixed(1).replace(".", ",");
   historyBar.style.width = `${progress * 100}%`;
-  routeMap.setAttribute("viewBox", interpolateViewBox(progress).map(value => value.toFixed(2)).join(" "));
+  const point = routeProgress.getPointAtLength(routeLength * routeFraction);
+  const mobile = window.innerWidth <= 820;
+  const w = mobile ? 460 : 530, h = mobile ? 430 : 420;
+  routeMap.setAttribute("viewBox", `${point.x - w / 2} ${point.y - h / 2} ${w} ${h}`);
 
   if (activeHistoryIndex !== activeIndex) {
     activeHistoryIndex = activeIndex;
+    const streets = [
+      ["VERRAZZANO BRIDGE", "Över sundet. In mot staden."],
+      ["PULASKI BRIDGE", "Från Brooklyn till Queens"],
+      ["THE BRONX", "Sedan söderut längs Fifth Avenue"],
+      ["CENTRAL PARK", "Sista svängarna. Snart målrakan."]
+    ];
+    document.querySelector("#street-name").textContent = streets[activeIndex][0];
+    document.querySelector("#street-detail").textContent = streets[activeIndex][1];
     historySteps.forEach((step, index) => {
       const selected = index === activeIndex;
       step.classList.toggle("is-active", selected);
@@ -293,21 +292,25 @@ const trackSteps = [...document.querySelectorAll(".track-step")];
 const trackClock = document.querySelector("#track-clock");
 const trackCaption = document.querySelector("#track-caption");
 const lanePaths = {
+  six: document.querySelector("#lane-six"),
   four: document.querySelector("#lane-four"),
   record: document.querySelector("#lane-record"),
   almgren: document.querySelector("#lane-almgren")
 };
 const trackNodes = {
+  six: { marker: document.querySelector("#runner-six"), glow: document.querySelector("#runner-six-glow") },
   four: { marker: document.querySelector("#runner-four"), glow: document.querySelector("#runner-four-glow") },
   record: { marker: document.querySelector("#runner-record"), glow: document.querySelector("#runner-record-glow") },
   almgren: { marker: document.querySelector("#runner-almgren"), glow: document.querySelector("#runner-almgren-glow") }
 };
 const trackDistanceNodes = {
+  six: document.querySelector("#distance-six"),
   four: document.querySelector("#distance-four"),
   record: document.querySelector("#distance-record"),
   almgren: document.querySelector("#distance-almgren")
 };
 const trackSpeeds = {
+  six: 42195 / (6 * 60 * 60),
   four: 42195 / (4 * 60 * 60),
   record: 42195 / (2 * 60 * 60 + 4 * 60 + 58),
   almgren: 21097.5 / (58 * 60 + 41)
@@ -321,7 +324,7 @@ function placeOnTrack(key, distance) {
   const point = path.getPointAtLength(fraction * length);
   const nextPoint = path.getPointAtLength(((fraction + .002) % 1) * length);
   const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * 180 / Math.PI + 90;
-  const markerTransform = key === "four" ? `translate(${point.x} ${point.y})` : `translate(${point.x} ${point.y}) rotate(${angle})`;
+  const markerTransform = ["four", "six"].includes(key) ? `translate(${point.x} ${point.y})` : `translate(${point.x} ${point.y}) rotate(${angle})`;
   marker.setAttribute("transform", markerTransform);
   glow.setAttribute("transform", `translate(${point.x} ${point.y})`);
 }
@@ -342,7 +345,7 @@ function trackTimeFromScroll() {
   }
   const activationY = window.scrollY + window.innerHeight * (window.innerWidth <= 820 ? .72 : .54);
   const anchors = trackSteps.map(step => ({
-    y: step.getBoundingClientRect().top + window.scrollY + step.offsetHeight / 2,
+    y: step.getBoundingClientRect().top + window.scrollY + (window.innerWidth <= 820 ? window.innerHeight * .14 : step.offsetHeight / 2),
     time: Number(step.dataset.trackTime)
   }));
   if (activationY <= anchors[0].y) return anchors[0].time;
@@ -379,7 +382,7 @@ const physiologyStage = document.querySelector(".physiology__stage");
 const physiologyLabel = document.querySelector("#physiology-label");
 const physiologyCaption = document.querySelector("#physiology-caption");
 const physiologyContent = {
-  mechanics: ["01 · Mekanik", "Muskler och senor tar emot och återför kraft i varje steg."],
+  mechanics: ["01 · Mekanik", "Hälsenan överför kraft från vadmusklerna till hälen och kan återföra lagrad energi."],
   oxygen: ["02 · Syretransport", "Syre går från luft till blod och vidare till de arbetande musklerna."],
   economy: ["03 · Löpekonomi", "Samma fart kan kräva olika mycket syre från två löpare."],
   durability: ["04 · Uthållighet", "Den illustrativa kurvan visar vad som händer när förmågan börjar avta."]
@@ -387,6 +390,9 @@ const physiologyContent = {
 const physiologyController = createStepController(".physiology-step", step => {
   const mode = step.dataset.physiology;
   physiologyStage.dataset.physiologyMode = mode;
+  physiologyStage.querySelectorAll(".phys-layer").forEach(layer => {
+    layer.setAttribute("aria-hidden", String(!layer.classList.contains(`phys-layer--${mode}`)));
+  });
   physiologyLabel.textContent = physiologyContent[mode][0];
   physiologyCaption.textContent = physiologyContent[mode][1];
 });
@@ -395,14 +401,18 @@ const trainingStage = document.querySelector(".training__stage");
 const trainingLabel = document.querySelector("#training-label");
 const trainingCaption = document.querySelector("#training-caption");
 const trainingContent = {
-  volume: ["01 · Mängd", "Omkring 200 kilometer motsvarar nästan fem maraton på en vecka."],
-  threshold: ["02 · Dubbeltröskel", "Två tröskelpass på samma dag ger stor mängd kontrollerat arbete."],
-  lactate: ["03 · Laktat", "Blodprovet används för att styra intensiteten under passet."],
-  longrun: ["04 · Långpass", "Efter 90–100 minuter kan farten skruvas upp i ett 35–40 kilometer långt pass."]
+  volume: ["01 · Mängd", "Almgrens grundvecka på höjd, beskriven i Athletics Weekly 2026."],
+  threshold: ["02 · Dubbeltröskel", "Två kontrollerade tröskelpass samma dag. Principbild, inte exakta intervaller."],
+  lactate: ["03 · Laktat", "Ett tävlingsförberedande pass inför 10 km, återgivet av COROS."],
+  longrun: ["04 · Långpass", "Genomfört 35-km-pass. Ett längre 40-km-pass var fortfarande planerat."]
 };
 const trainingController = createStepController(".training-step", step => {
   const mode = step.dataset.training;
   trainingStage.dataset.trainingMode = mode;
+  trainingStage.querySelectorAll(".train-layer").forEach(layer => {
+    layer.setAttribute("aria-hidden", String(!layer.classList.contains(`train-layer--${mode}`)));
+  });
+  document.querySelector("#notebook-page-number").textContent = `${String(["volume", "threshold", "lactate", "longrun"].indexOf(mode) + 1).padStart(2, "0")} / 04`;
   trainingLabel.textContent = trainingContent[mode][0];
   trainingCaption.textContent = trainingContent[mode][1];
 });
@@ -414,7 +424,7 @@ if ("IntersectionObserver" in window) {
   const motionObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => entry.target.classList.toggle("is-in-view", entry.isIntersecting));
   }, { rootMargin: "30% 0px" });
-  document.querySelectorAll(".history, .physiology").forEach(section => motionObserver.observe(section));
+  document.querySelectorAll(".history, .physiology, .finish").forEach(section => motionObserver.observe(section));
 }
 
 function updateEverything() {
