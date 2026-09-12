@@ -23,4 +23,8 @@ Lägg till `?motion=reduce` för att kontrollera versionen utan övergångsröre
 
 Formpass september 2026: blågrå bas, nummerlappar vid historiska stopp, fyra fartnivåer, animerad fysiologi, träningsdagbok och målband. Handstilen Caveat laddas lokalt från `assets/fonts/`; licensen ligger i samma mapp.
 
-Träningsdagboken visar nu källbelagda pass från Almgren och Bakken, med en fördjupning om Ingebrigtsen och Moen. Se `planning/training-research.md`. Avslutet är ett målområde byggt i HTML/CSS med en tom tidtavla för Almgren.
+Träningskalendern visar en illustrativ vecka i ett maratonblock med inspiration från Almgrens intervjuer och Bakken som metodkälla för dubbeltröskel. Scrollningen zoomar in olika dagar; passens källor och avgränsningar finns i `planning/training-research.md`. Avslutet är ett målområde byggt i HTML/CSS med en tom tidtavla för Almgren.
+
+## Testversion på GitHub Pages
+
+Push till `main` publicerar automatiskt testversionen på https://kpclick12.github.io/scrolly-endurance/ via `.github/workflows/pages.yml`. Flödet kontrollerar JavaScript och publicerar sidans HTML, CSS, JavaScript och assets. Pages används för test; publicering på den egna webbplatsen görs separat senare.

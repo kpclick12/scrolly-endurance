@@ -31,3 +31,8 @@ Siffrorna i träningsloggen är dokumentation av elitträning, inte ett individu
 ## Senaste avgränsning
 
 Jämförelsen med andra elitlöpare är borttagen på användarens begäran. Underlaget ovan bevaras som researchhistorik. Berättelsen fokuserar på Almgren; laktat beskrivs som intensitetskontroll under passet, medan återhämtning även följs genom trötthet, sömn och kroppens svar över tid. Veckoschemat är en redaktionell återgivning av rapporterad grundträning, inte en avbildning av hans privata dagbok.
+
+## Maratonkalender, 12 september 2026
+Användaren önskade ett illustrativt maratonblock framför en fastslagen grundvecka. Runner’s World-intervjun 25 augusti lästes i sin helhet via webbläsaren. Almgren betonar LT1, långpass med snabb avslutning och energiintag. Kalendern är nu en exempelvecka: lugna dagar, dubbeltröskel från grundträningen, aerobt LT1-arbete och det beskrivna 35-km-passet på söndagen. Veckodagar, mellanpass och kombinationen är redaktionella val; artikeln anger varken komplett vecka eller aktuell dubbeltröskelfrekvens. Ingen påhittad veckomängd eller intervallfart sätts ut. Grundträningen och COROS-passet finns kvar som separat bakgrund. 40 km är fortsatt markerat som planerat vid intervjun.
+
+Form: en kvarliggande SVG-kalender zoomas mot måndag, tisdag, torsdag och söndag. De lösa passanteckningarna ligger i textflödet ovanpå kalendern på mobil. Samma kalender behålls genom alla tillstånd. Veckoöversikten kan öppnas med knapp; reducerad rörelse byter direkt utan zoomanimation.

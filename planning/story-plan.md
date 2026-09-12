@@ -77,3 +77,12 @@ Tre Luna-agenter granskade Almgren, Bakken och andra elitlöpare. Se `training-r
 
 ## Varsam koncentrering av berättelsen
 Historien har fyra stopp; de olympiska distanserna och New Yorks två tidiga banversioner är sammanslagna. Kartans hållpunkter och skyltar följer de fyra stoppen. Fartsektionen har kortare tolkningar medan exakta tider och avstånd finns kvar i visualen. Övergången till träningen återknyter till Almgrens fart, energiintaget får en kort AIS-källbelagd förklaring och målrubriken knyter ihop rekordet med distansen. Visuell form och befintliga illustrationer bevaras.
+
+## Preflight-korrigeringar, 10 september 2026
+Ingen genväg läggs till. Diagrammets medelmarkör använder nu urvalets 4:32:45 och metodtexten anger att orsaken till bortfallet inte är fastställd. Mobila SVG-etiketter håller cirka 12 CSS-pixlar genom zoomlägena och glesas ut. Kartans alternativtext beskriver fyra historiska stopp. Skiplänken landar på fokuserbart main. Språket preciserar kortdistansfarten och minskar upprepningen om löpekonomi.
+
+Kontrollerat: tangentbordsfokus, reducerad rörelse, alternativtexters förekomst, fyra diagramlägen vid 320/390/820/1440 px, inga horisontella överflöden eller JavaScript-fel. Uppmätta kontraster för valda brödtexter, röda anteckningar och axeltext: 5,4–11,7:1. Ingen full skärmläsargranskning genomförd. LinkedIns länkkort återstår att kontrollera när publik adress finns.
+
+## Zoomande maratonkalender, 12 september
+Träningssektionen använder nu en kvarliggande kalender med sju dagar och fyra scrollsteg (måndag, tisdag, torsdag, söndag). Innehållet är en märkt exempelvecka inspirerad av Almgrens maratonblock; se senaste avgränsningen i training-research.md. De handskrivna passnoteringarna ligger i textrutorna, medan kalenderns kamera zoomar och flyttar sig. Detaljer för de separata Valencia- och maratonpassen går att fälla ut. Veckoöversikt nås med tangentbord eller knapp.
+Verifierat i browser: desktop, 390×844 och 320×568, inga horisontella överflöden eller konsolfel; utfälld långpassnotering, tangentbordsaktivering av veckoöversikten och reducerad rörelse. Originalaffisch, anatomisektion och målgång bevaras.

@@ -209,7 +209,7 @@ finishArea.setAttribute("d", `${finishLineD} L${xForHour(8)} ${plot.bottom} L${x
 for (let hour = 2; hour <= 8; hour += 1) {
   const x = xForHour(hour);
   chartAxis.append(svgElement("line", { x1: x, x2: x, y1: plot.bottom, y2: plot.bottom + 8, stroke: "currentColor" }));
-  chartAxis.append(svgElement("text", { x, y: plot.bottom + 30, "text-anchor": "middle" }, `${hour}:00`));
+  chartAxis.append(svgElement("text", { x, y: plot.bottom + 30, "text-anchor": "middle", "data-hour": hour }, `${hour}:00`));
 }
 chartAxis.append(svgElement("text", { x: (plot.left + plot.right) / 2, y: 585, "text-anchor": "middle" }, "SLUTTID"));
 
@@ -231,14 +231,18 @@ function addMarker(hour, label, className, labelY, anchor = "start") {
     group.append(svgElement("circle", { cx: x, cy: plot.bottom, r: 7 }));
   }
   const labelX = anchor === "end" ? x - 10 : x + 10;
-  group.append(svgElement("text", { x: labelX, y: labelY, "text-anchor": anchor }, label));
+  const text = svgElement("text", { x: labelX, y: labelY, "text-anchor": anchor });
+  const [time, context] = label.split("  ");
+  text.append(svgElement("tspan", {}, time));
+  if (context) text.append(svgElement("tspan", { class: "chart-marker-context" }, `  ${context}`));
+  group.append(text);
   chartMarkers.append(group);
 }
 
 addMarker(2 + 4 / 60 + 58 / 3600, "2:04:58  BANREKORD", "chart-marker--record", 474);
 addMarker(3, "3:00", "chart-marker--three", 345);
 addMarker(4, "4:00", "chart-marker--four", 158);
-addMarker(4 + 32 / 60 + 25 / 3600, "4:32:25  MEDEL", "chart-marker--average", 118);
+addMarker(4 + 32 / 60 + 45 / 3600, "4:32:45  URVALETS MEDEL", "chart-marker--average", 118);
 
 const distributionViews = {
   full: [0, 0, 1000, 620],
@@ -255,12 +259,18 @@ const distributionCopy = {
 let chartAnimationFrame = 0;
 let currentChartView = [...distributionViews.full];
 
+function sizeChartLabels() {
+  const scale = finishChart.getScreenCTM()?.a;
+  if (scale > 0) finishChart.style.setProperty("--mobile-chart-font", `${12 / scale}px`);
+}
+
 function animateChartView(target) {
   cancelAnimationFrame(chartAnimationFrame);
   const start = [...currentChartView];
   if (reduceMotion) {
     currentChartView = [...target];
     finishChart.setAttribute("viewBox", target.join(" "));
+    sizeChartLabels();
     return;
   }
   const started = performance.now();
@@ -271,6 +281,7 @@ function animateChartView(target) {
     const eased = 1 - Math.pow(1 - raw, 3);
     currentChartView = start.map((value, index) => lerp(value, target[index], eased));
     finishChart.setAttribute("viewBox", currentChartView.join(" "));
+    sizeChartLabels();
     if (raw < 1) chartAnimationFrame = requestAnimationFrame(tick);
   }
   chartAnimationFrame = requestAnimationFrame(tick);
@@ -401,20 +412,56 @@ const trainingStage = document.querySelector(".training__stage");
 const trainingLabel = document.querySelector("#training-label");
 const trainingCaption = document.querySelector("#training-caption");
 const trainingContent = {
-  volume: ["01 · Mängd", "Almgrens grundvecka på höjd, beskriven i Athletics Weekly 2026."],
-  threshold: ["02 · Dubbeltröskel", "Två kontrollerade tröskelpass samma dag. Principbild, inte exakta intervaller."],
-  lactate: ["03 · Laktat", "Ett tävlingsförberedande pass inför 10 km, återgivet av COROS."],
-  longrun: ["04 · Långpass", "Genomfört 35-km-pass. Ett längre 40-km-pass var fortfarande planerat."]
+  volume: ["01 · Måndag", "Lugn mängdträning. Veckodagar och mellanpass är illustrativa."],
+  threshold: ["02 · Tisdag", "Dubbeltröskel från grundträningen, inlagd som exempel här."],
+  lactate: ["03 · Torsdag", "LT1 betonas i Almgrens maratonblock. Torsdagen är ett exempel."],
+  longrun: ["04 · Söndag", "Almgrens beskrivna 35-km-pass, placerat på söndag i vårt exempel."]
 };
+const calendar = document.querySelector("#training-calendar");
+const calendarOverview = document.querySelector(".calendar-overview");
+const calendarDays = { volume: 0, threshold: 1, lactate: 3, longrun: 6 };
+let calendarView = [0, 0, 1540, 780];
+let calendarFrame = 0;
+let calendarKey = "";
+let showCalendarOverview = false;
+function updateCalendar() {
+  const mode = trainingStage.dataset.trainingMode;
+  const beforeNotes = document.querySelector(".training-step .story-card").getBoundingClientRect().top > innerHeight * .5;
+  const overview = showCalendarOverview || beforeNotes;
+  const mobile = innerWidth <= 820;
+  const key = `${mode}-${overview}-${mobile}`;
+  if (key === calendarKey) return;
+  calendarKey = key;
+  calendar.dataset.overview = String(overview);
+  const day = calendarDays[mode];
+  const width = mobile ? 430 : 780;
+  const center = 42 + day * 208 + 104;
+  const target = overview ? [0, 0, 1540, 780] : [clamp(center - width / 2, 0, 1540 - width), 92, width, 650];
+  calendar.querySelectorAll(".calendar-day").forEach((node, index) => node.classList.toggle("is-selected", !overview && index === day));
+  calendarOverview.setAttribute("aria-pressed", String(showCalendarOverview));
+  calendarOverview.textContent = showCalendarOverview ? "Till dagens pass" : "Visa hela veckan";
+  cancelAnimationFrame(calendarFrame);
+  const start = [...calendarView], started = performance.now();
+  function frame(now) {
+    const t = reduceMotion ? 1 : clamp((now - started) / 850);
+    const eased = 1 - Math.pow(1 - t, 3);
+    calendarView = start.map((n, i) => lerp(n, target[i], eased));
+    calendar.setAttribute("viewBox", calendarView.join(" "));
+    if (t < 1) calendarFrame = requestAnimationFrame(frame);
+  }
+  calendarFrame = requestAnimationFrame(frame);
+}
+calendarOverview.addEventListener("click", () => {
+  showCalendarOverview = !showCalendarOverview;
+  updateCalendar();
+});
 const trainingController = createStepController(".training-step", step => {
   const mode = step.dataset.training;
   trainingStage.dataset.trainingMode = mode;
-  trainingStage.querySelectorAll(".train-layer").forEach(layer => {
-    layer.setAttribute("aria-hidden", String(!layer.classList.contains(`train-layer--${mode}`)));
-  });
-  document.querySelector("#notebook-page-number").textContent = `${String(["volume", "threshold", "lactate", "longrun"].indexOf(mode) + 1).padStart(2, "0")} / 04`;
+  showCalendarOverview = false;
   trainingLabel.textContent = trainingContent[mode][0];
   trainingCaption.textContent = trainingContent[mode][1];
+  updateCalendar();
 });
 
 const stepControllers = [distributionController, trackController, physiologyController, trainingController];
@@ -432,6 +479,8 @@ function updateEverything() {
   updateHistory();
   stepControllers.forEach(controller => controller.update());
   updateTrack();
+  sizeChartLabels();
+  updateCalendar();
 }
 
 function requestUpdate() {
