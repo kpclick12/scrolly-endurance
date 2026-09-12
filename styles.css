@@ -1527,14 +1527,10 @@ mark { color: inherit; }
 #training-calendar[data-overview="false"] .calendar-total,
 #training-calendar[data-overview="false"] .calendar-foot { visibility: hidden; }
 
-/* Compact mobile cards, followed by an unobstructed view of the scene. */
+/* Compact mobile cards; the map and calendar keep longer viewing intervals. */
 @media (max-width: 820px) {
-  .step:has(> .story-card), .history-step {
-    min-height: 0;
-    padding: 0 12px 96svh;
-  }
-  .history-step { padding-inline: 0; }
-  .step.training-step { padding-bottom: 110svh; }
+  .history-step { min-height: 0; padding: 0 0 80svh; }
+  .step.training-step { min-height: 0; padding-bottom: 92svh; }
   .step > .story-card, .training-step .calendar-note { padding: 18px; }
   .step h3 { font-size: clamp(26px, 7.2vw, 31px); line-height: 1.12; }
   .step h3 + p { margin-top: 12px; }

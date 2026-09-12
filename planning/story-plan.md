@@ -93,3 +93,6 @@ Mobilkorten har mindre rubriker, anteckningar och inre marginaler; brödtexten i
 Kartans geometri beräknas före scrollning och återanvänds, uppdateringar utanför skärmen hoppas över, och mobilkameran får en kort utjämning. Kartans scrollsträcka baseras på stabil skärmhöjd, så adressfältets höjdförändringar inte flyttar positionen. Reducerad rörelse ger direkt uppdatering.
 
 Kontrollerat i webbläsare vid 320×568, 390×844, 430×932, 820×700 och desktop 1280×720: inget horisontellt överflöde, utfällda anteckningar fungerar. Vid 390 px blev träningskorten cirka 20 procent lägre. Fri kalender och bibehållet diagramläge verifierades mellan korten, liksom kartscroll åt båda håll och reducerad rörelse. Inga konsolfel. Flytet på fysisk telefon återstår för användaren att bedöma.
+
+### Justerad efter test på telefon
+På användarens begäran återgår sektion 2–4 till tidigare scrollavstånd: 30 svh bottenutfyllnad och 76/78 svh minsta steghöjd. Kartans mellanrum minskas från 96 till 80 svh och kalenderns från 110 till 92 svh. De mindre korten, tydliga lagren och kartans prestandaförbättringar behålls. Kontrollerat vid 320, 390 och 430 px samt desktop: inga överflöden eller konsolfel. Visuellt kontrollerat att diagrammet behåller rätt läge tills nästa kort når mitten och att kalendern fortfarande syns fritt mellan anteckningarna.
