@@ -30,6 +30,15 @@ function formatClock(totalSeconds) {
 
 function closestStep(steps, activationRatio = .54) {
   const activationY = window.innerHeight * activationRatio;
+  if (window.innerWidth <= 820) {
+    // Keep this scene visible through the gap, until the next card enters.
+    let current = steps[0];
+    for (const step of steps) {
+      const card = step.querySelector('.story-card, .bib') || step;
+      if (card.getBoundingClientRect().top <= activationY) current = step;
+    }
+    return current;
+  }
   let closest = steps[0];
   let smallestDistance = Infinity;
 
@@ -46,11 +55,14 @@ function closestStep(steps, activationRatio = .54) {
 
 function createStepController(selector, onChange) {
   const steps = [...document.querySelectorAll(selector)];
+  const section = steps[0]?.closest('section');
   let active = null;
 
   function update() {
     if (!steps.length) return;
-    const next = closestStep(steps, window.innerWidth <= 820 ? .72 : .54);
+    const bounds = section.getBoundingClientRect();
+    if (active && (bounds.bottom < 0 || bounds.top > innerHeight)) return;
+    const next = closestStep(steps, window.innerWidth <= 820 ? .5 : .54);
     if (next === active) return;
     active = next;
     steps.forEach(step => {
@@ -81,10 +93,18 @@ const stopCoordinates = [[117,700], [578,275], [813,70], [722,493]];
 const stopKilometres = [0, 21.1, 32, 42.195];
 [routeRoad, routeShadow, routeProgress, routeCentre].forEach(path => path.setAttribute("d", routeD));
 const routeLength = routeProgress.getTotalLength();
+// Read SVG geometry once, before animation writes, rather than during scroll.
+const routeSamples = Array.from({ length: 3001 }, (_, n) => routeProgress.getPointAtLength(routeLength * n / 3000));
+function routePoint(fraction) {
+  const position = clamp(fraction) * 3000;
+  const index = Math.min(2999, Math.floor(position));
+  const a = routeSamples[index], b = routeSamples[index + 1];
+  return { x: lerp(a.x, b.x, position - index), y: lerp(a.y, b.y, position - index) };
+}
 const milestoneFractions = stopCoordinates.map(([x,y]) => {
   let nearest = 0, distance = Infinity;
   for (let n = 0; n <= 3000; n++) {
-    const p = routeProgress.getPointAtLength(routeLength * n / 3000);
+    const p = routeSamples[n];
     const d = Math.hypot(p.x-x, p.y-y);
     if (d < distance) { distance = d; nearest = n / 3000; }
   }
@@ -94,7 +114,7 @@ routeProgress.style.strokeDasharray = `${routeLength}`;
 routeProgress.style.strokeDashoffset = `${routeLength}`;
 
 const milestoneNodes = milestoneFractions.map((fraction, index) => {
-  const point = routeProgress.getPointAtLength(routeLength * fraction);
+  const point = routePoint(fraction);
   const group = svgElement("g", { class: "milestone", transform: `translate(${point.x} ${point.y})` });
   group.append(svgElement("circle", { r: 14 }), svgElement("text", {}, String(index + 1)));
   milestones.append(group);
@@ -111,12 +131,48 @@ const packNodes = [0, .012, .025, .04].map((offset, index) => {
 });
 
 let activeHistoryIndex = -1;
+let historyProgress = null;
+let historyTarget = 0;
+let historyFrame = 0;
+let historyTime = 0;
+const historyStage = document.querySelector('.history__stage');
+
+function animateHistory(now) {
+  const delta = Math.min(64, now - historyTime);
+  historyTime = now;
+  historyProgress = lerp(historyProgress, historyTarget, 1 - Math.exp(-delta / 65));
+  if (Math.abs(historyProgress - historyTarget) < .00002) historyProgress = historyTarget;
+  renderHistory(historyProgress);
+  historyFrame = historyProgress === historyTarget ? 0 : requestAnimationFrame(animateHistory);
+}
 
 function updateHistory() {
   if (!historySection) return;
   const rect = historySection.getBoundingClientRect();
-  const travel = Math.max(1, rect.height - window.innerHeight);
+  if (rect.bottom < 0 || rect.top > innerHeight) {
+    cancelAnimationFrame(historyFrame);
+    historyFrame = 0;
+    historyProgress = null;
+    return;
+  }
+  const mobile = innerWidth <= 820;
+  // The browser toolbar changes innerHeight while scrolling; svh stays stable.
+  const viewportHeight = mobile ? historyStage.clientHeight / .62 : innerHeight;
+  const travel = Math.max(1, rect.height - viewportHeight);
   const progress = clamp(-rect.top / travel);
+  historyTarget = progress;
+  if (!mobile || reduceMotion || historyProgress === null) {
+    cancelAnimationFrame(historyFrame);
+    historyFrame = 0;
+    historyProgress = progress;
+    renderHistory(progress);
+  } else if (!historyFrame) {
+    historyTime = performance.now();
+    historyFrame = requestAnimationFrame(animateHistory);
+  }
+}
+
+function renderHistory(progress) {
   const segmentCount = milestoneFractions.length - 1;
   const segment = Math.min(segmentCount - 1, Math.floor(progress * segmentCount));
   const local = progress * segmentCount - segment;
@@ -126,13 +182,14 @@ function updateHistory() {
   routeProgress.style.strokeDashoffset = `${routeLength * (1 - routeFraction)}`;
   packNodes.forEach(({ node, offset }) => {
     const fraction = clamp(routeFraction - offset, 0, 1);
-    const point = routeProgress.getPointAtLength(routeLength * fraction);
+    const point = routePoint(fraction);
     node.setAttribute("cx", point.x);
     node.setAttribute("cy", point.y);
   });
-  routeReadout.textContent = lerp(stopKilometres[segment], stopKilometres[segment + 1], local).toFixed(1).replace(".", ",");
-  historyBar.style.width = `${progress * 100}%`;
-  const point = routeProgress.getPointAtLength(routeLength * routeFraction);
+  const kilometres = lerp(stopKilometres[segment], stopKilometres[segment + 1], local).toFixed(1).replace(".", ",");
+  if (routeReadout.textContent !== kilometres) routeReadout.textContent = kilometres;
+  historyBar.style.transform = `scaleX(${progress})`;
+  const point = routePoint(routeFraction);
   const mobile = window.innerWidth <= 820;
   const w = mobile ? 460 : 530, h = mobile ? 430 : 420;
   routeMap.setAttribute("viewBox", `${point.x - w / 2} ${point.y - h / 2} ${w} ${h}`);
@@ -351,7 +408,7 @@ function updateTrackAtTime(seconds) {
 
 function trackTimeFromScroll() {
   if (reduceMotion) {
-    const active = closestStep(trackSteps, .72);
+    const active = closestStep(trackSteps, window.innerWidth <= 820 ? .5 : .54);
     return Number(active.dataset.trackTime);
   }
   const activationY = window.scrollY + window.innerHeight * (window.innerWidth <= 820 ? .72 : .54);
@@ -425,6 +482,8 @@ let calendarFrame = 0;
 let calendarKey = "";
 let showCalendarOverview = false;
 function updateCalendar() {
+  const bounds = trainingStage.closest('section').getBoundingClientRect();
+  if (bounds.bottom < 0 || bounds.top > innerHeight) return;
   const mode = trainingStage.dataset.trainingMode;
   const beforeNotes = document.querySelector(".training-step .story-card").getBoundingClientRect().top > innerHeight * .5;
   const overview = showCalendarOverview || beforeNotes;
@@ -479,7 +538,6 @@ function updateEverything() {
   updateHistory();
   stepControllers.forEach(controller => controller.update());
   updateTrack();
-  sizeChartLabels();
   updateCalendar();
 }
 
@@ -488,9 +546,10 @@ function requestUpdate() {
 }
 
 window.addEventListener("scroll", requestUpdate, { passive: true });
-window.addEventListener("resize", requestUpdate);
+window.addEventListener("resize", () => { sizeChartLabels(); requestUpdate(); });
 document.addEventListener("visibilitychange", () => {
   document.documentElement.classList.toggle("page-hidden", document.hidden);
 });
 
+sizeChartLabels();
 updateEverything();

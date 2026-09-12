@@ -86,3 +86,10 @@ Kontrollerat: tangentbordsfokus, reducerad rörelse, alternativtexters förekoms
 ## Zoomande maratonkalender, 12 september
 Träningssektionen använder nu en kvarliggande kalender med sju dagar och fyra scrollsteg (måndag, tisdag, torsdag, söndag). Innehållet är en märkt exempelvecka inspirerad av Almgrens maratonblock; se senaste avgränsningen i training-research.md. De handskrivna passnoteringarna ligger i textrutorna, medan kalenderns kamera zoomar och flyttar sig. Detaljer för de separata Valencia- och maratonpassen går att fälla ut. Veckoöversikt nås med tangentbord eller knapp.
 Verifierat i browser: desktop, 390×844 och 320×568, inga horisontella överflöden eller konsolfel; utfälld långpassnotering, tangentbordsaktivering av veckoöversikten och reducerad rörelse. Originalaffisch, anatomisektion och målgång bevaras.
+
+## Mobilrytm och kartscroll, 12 september 2026
+Mobilkorten har mindre rubriker, anteckningar och inre marginaler; brödtexten i sektion 2–5 är fortsatt 16 px. Mellanrummen är 96 svh, och 110 svh för träningskalendern. Alla kort rullar ovanpå visualerna med full opacitet. Scenerna byts först när nästa kort når skärmens mitt, så föregående diagram ligger kvar i mellanrummet. Desktopformen är bevarad.
+
+Kartans geometri beräknas före scrollning och återanvänds, uppdateringar utanför skärmen hoppas över, och mobilkameran får en kort utjämning. Kartans scrollsträcka baseras på stabil skärmhöjd, så adressfältets höjdförändringar inte flyttar positionen. Reducerad rörelse ger direkt uppdatering.
+
+Kontrollerat i webbläsare vid 320×568, 390×844, 430×932, 820×700 och desktop 1280×720: inget horisontellt överflöde, utfällda anteckningar fungerar. Vid 390 px blev träningskorten cirka 20 procent lägre. Fri kalender och bibehållet diagramläge verifierades mellan korten, liksom kartscroll åt båda håll och reducerad rörelse. Inga konsolfel. Flytet på fysisk telefon återstår för användaren att bedöma.
