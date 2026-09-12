@@ -53,7 +53,7 @@ function closestStep(steps, activationRatio = .54) {
   return closest;
 }
 
-function createStepController(selector, onChange) {
+function createStepController(selector, onChange, mobileActivationRatio = .5) {
   const steps = [...document.querySelectorAll(selector)];
   const section = steps[0]?.closest('section');
   let active = null;
@@ -62,7 +62,7 @@ function createStepController(selector, onChange) {
     if (!steps.length) return;
     const bounds = section.getBoundingClientRect();
     if (active && (bounds.bottom < 0 || bounds.top > innerHeight)) return;
-    const next = closestStep(steps, window.innerWidth <= 820 ? .5 : .54);
+    const next = closestStep(steps, window.innerWidth <= 820 ? mobileActivationRatio : .54);
     if (next === active) return;
     active = next;
     steps.forEach(step => {
@@ -463,7 +463,7 @@ const physiologyController = createStepController(".physiology-step", step => {
   });
   physiologyLabel.textContent = physiologyContent[mode][0];
   physiologyCaption.textContent = physiologyContent[mode][1];
-});
+}, 1); // On mobile, reveal the anatomy scene as its card enters the viewport.
 
 const trainingStage = document.querySelector(".training__stage");
 const trainingLabel = document.querySelector("#training-label");
@@ -485,9 +485,9 @@ function updateCalendar() {
   const bounds = trainingStage.closest('section').getBoundingClientRect();
   if (bounds.bottom < 0 || bounds.top > innerHeight) return;
   const mode = trainingStage.dataset.trainingMode;
-  const beforeNotes = document.querySelector(".training-step .story-card").getBoundingClientRect().top > innerHeight * .5;
-  const overview = showCalendarOverview || beforeNotes;
   const mobile = innerWidth <= 820;
+  const beforeNotes = document.querySelector(".training-step .story-card").getBoundingClientRect().top > innerHeight * (mobile ? 1 : .5);
+  const overview = showCalendarOverview || beforeNotes;
   const key = `${mode}-${overview}-${mobile}`;
   if (key === calendarKey) return;
   calendarKey = key;
@@ -521,7 +521,7 @@ const trainingController = createStepController(".training-step", step => {
   trainingLabel.textContent = trainingContent[mode][0];
   trainingCaption.textContent = trainingContent[mode][1];
   updateCalendar();
-});
+}, 1); // On mobile, start the zoom as soon as the next card enters the viewport.
 
 const stepControllers = [distributionController, trackController, physiologyController, trainingController];
 let scrollFrame = 0;
