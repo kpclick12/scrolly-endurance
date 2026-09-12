@@ -1529,6 +1529,7 @@ mark { color: inherit; }
 
 /* Compact mobile cards; map, anatomy and calendar get time between notes. */
 @media (max-width: 820px) {
+  #training-heading { font-size: clamp(32px, 9.5vw, 60px); padding-inline-end: .12em; }
   .history-step { min-height: 0; padding: 0 0 72svh; }
   .step.physiology-step { min-height: 0; padding-bottom: 72svh; }
   .step.training-step { min-height: 0; padding-bottom: 82svh; }

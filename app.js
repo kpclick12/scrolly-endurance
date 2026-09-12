@@ -138,7 +138,8 @@ let historyTime = 0;
 const historyStage = document.querySelector('.history__stage');
 
 function animateHistory(now) {
-  const delta = Math.min(64, now - historyTime);
+  // A frame timestamp can precede performance.now() from the scheduling event.
+  const delta = clamp(now - historyTime, 0, 64);
   historyTime = now;
   historyProgress = lerp(historyProgress, historyTarget, 1 - Math.exp(-delta / 65));
   if (Math.abs(historyProgress - historyTarget) < .00002) historyProgress = historyTarget;
