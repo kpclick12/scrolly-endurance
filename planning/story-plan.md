@@ -96,3 +96,5 @@ Kontrollerat i webbläsare vid 320×568, 390×844, 430×932, 820×700 och deskto
 
 ### Justerad efter test på telefon
 På användarens begäran återgår sektion 2–4 till tidigare scrollavstånd: 30 svh bottenutfyllnad och 76/78 svh minsta steghöjd. Kartans mellanrum minskas från 96 till 80 svh och kalenderns från 110 till 92 svh. De mindre korten, tydliga lagren och kartans prestandaförbättringar behålls. Kontrollerat vid 320, 390 och 430 px samt desktop: inga överflöden eller konsolfel. Visuellt kontrollerat att diagrammet behåller rätt läge tills nästa kort når mitten och att kalendern fortfarande syns fritt mellan anteckningarna.
+
+Nästa justering: kartan kortas till 72 svh och kalendern till 82 svh. Anatomisektionen får samma 72 svh mellanrum som kartan för att bilderna ska hinna synas. Sektion 2–3 behåller tidigare avstånd. Vid 390 px verifierades fri vy av lungor, hjärta och muskler med rätt scen kvar när nästa kort närmar sig. Även 320, 430 px och desktop kontrollerades utan överflöden eller konsolfel.
