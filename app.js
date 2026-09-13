@@ -175,8 +175,12 @@ function updateHistory() {
 
 function renderHistory(progress) {
   const segmentCount = milestoneFractions.length - 1;
-  const segment = Math.min(segmentCount - 1, Math.floor(progress * segmentCount));
-  const local = progress * segmentCount - segment;
+  // Stops activate halfway between narrative positions. Arrive at that same
+  // boundary: a shorter first leg, then steady travel, with time at the finish.
+  const firstArrival = .5 / segmentCount;
+  const travelProgress = progress < firstArrival ? progress * 2 : Math.min(1, progress + firstArrival);
+  const segment = Math.min(segmentCount - 1, Math.floor(travelProgress * segmentCount));
+  const local = travelProgress * segmentCount - segment;
   const routeFraction = lerp(milestoneFractions[segment], milestoneFractions[segment + 1], local);
   const activeIndex = Math.min(historySteps.length - 1, Math.max(0, Math.round(progress * (historySteps.length - 1))));
 
