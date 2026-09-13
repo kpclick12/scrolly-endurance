@@ -25,6 +25,6 @@ Formpass september 2026: blågrå bas, nummerlappar vid historiska stopp, fyra f
 
 Träningskalendern visar en illustrativ vecka i ett maratonblock med inspiration från Almgrens intervjuer och Bakken som metodkälla för dubbeltröskel. Scrollningen zoomar in olika dagar; passens källor och avgränsningar finns i `planning/training-research.md`. Avslutet är ett målområde byggt i HTML/CSS med en tom tidtavla för Almgren.
 
-## Testversion på GitHub Pages
+## Publicering
 
-Push till `main` publicerar automatiskt testversionen på https://kpclick12.github.io/scrolly-endurance/ via `.github/workflows/pages.yml`. Flödet kontrollerar JavaScript och publicerar sidans HTML, CSS, JavaScript och assets. Pages används för test; publicering på den egna webbplatsen görs separat senare.
+Push till `main` publicerar automatiskt testversionen på https://kpclick12.github.io/scrolly-endurance/ via `.github/workflows/pages.yml`. Flödet kontrollerar JavaScript och publicerar sidans HTML, CSS, JavaScript och assets. Den slutliga adressen är https://plainx.dev/posts/hur-langt-racker-almgrens-fart/.
