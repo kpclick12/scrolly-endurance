@@ -477,7 +477,7 @@ const trainingContent = {
   volume: ["01 · Måndag", "Lugn mängdträning. Veckodagar och mellanpass är illustrativa."],
   threshold: ["02 · Tisdag", "Dubbeltröskel från grundträningen, inlagd som exempel här."],
   lactate: ["03 · Torsdag", "LT1 betonas i Almgrens maratonblock. Torsdagen är ett exempel."],
-  longrun: ["04 · Söndag", "Almgrens beskrivna 35-km-pass, placerat på söndag i vårt exempel."]
+  longrun: ["04 · Söndag", "Almgrens beskrivna 35-km-pass, placerat på söndag i exempelveckan."]
 };
 const calendar = document.querySelector("#training-calendar");
 const calendarOverview = document.querySelector(".calendar-overview");

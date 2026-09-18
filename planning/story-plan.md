@@ -107,3 +107,6 @@ Kartans röda linje använder nu samma SVG-skalning som löparpunkterna. Klassen
 Löparnas förflyttning tidigareläggs så att de når varje kartstopp vid samma scrollposition som stoppet tänds. Första sträckan blir kortare i scrollen och målet får lite mer tid; linje, löpare, kamera och kilometer följs fortfarande åt. Isolerat test verifierar alla ankomstpunkter och kontinuerlig rörelse framåt och bakåt.
 
 På användarens begäran får bara löparbanan ligga framför textrutorna på mobil. De övriga sektionerna behåller korten ovanpå visualen. Verifierat vid 390 px att banan syns över ett överlappande kort och löparpositionerna ändras med scrollen; även sidbredd och lager kontrollerade vid 320 px och desktop 1280 px. Inga konsolfel.
+
+## Opersonlig berättarröst, 18 september
+Fem formuleringar med vi/vår/vårt i berättelsen och kalenderns dynamiska bildtext har skrivits om utan jag-form. Träningskalendern behålls som illustrativ exempelvecka utan angiven totalmängd. Sveriges Radio rapporterar den 18 september 33 km per dag i snitt under veckorna efter EM (cirka 231 km per vecka). Uppgiften beskriver den perioden, inte ett fast dagsschema, och ändrar inte kalenderns avgränsning. Källa: https://www.sverigesradio.se/artikel/andreas-almgren-laddad-mojlighet-att-kunna-bli-varldsmastare
