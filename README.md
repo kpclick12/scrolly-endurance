@@ -27,4 +27,4 @@ Träningskalendern visar en illustrativ vecka i ett maratonblock med inspiration
 
 ## Publicering
 
-Push till `main` publicerar automatiskt testversionen på https://kpclick12.github.io/scrolly-endurance/ via `.github/workflows/pages.yml`. Flödet kontrollerar JavaScript och publicerar sidans HTML, CSS, JavaScript och assets. Den slutliga adressen är https://plainx.dev/posts/hur-langt-racker-almgrens-fart/.
+Push till `main` publicerar automatiskt på https://kpclick12.github.io/scrolly-endurance/ via `.github/workflows/pages.yml`. Flödet kontrollerar JavaScript och publicerar sidans HTML, CSS, JavaScript och assets. Den slutliga adressen är https://plainx.dev/posts/hur-langt-racker-almgrens-fart. Huvudsajten vidarebefordrar berättelsen och `/scrolly-endurance/` till Pages. Kör lokal server från projektets överordnade mapp med projektmappen namngiven `scrolly-endurance` så att absoluta assetsökvägar fungerar.
