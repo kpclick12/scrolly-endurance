@@ -110,3 +110,6 @@ På användarens begäran får bara löparbanan ligga framför textrutorna på m
 
 ## Opersonlig berättarröst, 18 september
 Fem formuleringar med vi/vår/vårt i berättelsen och kalenderns dynamiska bildtext har skrivits om utan jag-form. Träningskalendern behålls som illustrativ exempelvecka utan angiven totalmängd. Sveriges Radio rapporterar den 18 september 33 km per dag i snitt under veckorna efter EM (cirka 231 km per vecka). Uppgiften beskriver den perioden, inte ett fast dagsschema, och ändrar inte kalenderns avgränsning. Källa: https://www.sverigesradio.se/artikel/andreas-almgren-laddad-mojlighet-att-kunna-bli-varldsmastare
+
+## Sista mobilputs, 19 september
+Nummerlappens överkant får 12 px extra inre marginal på båda sidor på mobil, så tejpen inte täcker bokstäver eller siffror. Kortet om London undviker dubbla ”blev” och behåller att distansen blev standard senare. Legendkortet säger nu att dagens maratondistans fastställdes långt senare. Löptidsdiagrammet byter zoom när ett kort når mobilskärmens nederkant, som sektion 4–5. Kontrollerat vid 390×844: peak-läget aktivt med kortets topp vid 739 px, återgång till full när toppen var 907 px, och tillbaka till peak vid framåtscroll. Inga konsolfel. Nummerlappens text och tejp kontrollerade visuellt vid 320 och 390 px. Publiceringens absoluta sökvägar och hemlänk bevarade.

@@ -1548,6 +1548,7 @@ mark { color: inherit; }
   .physiology-step .story-card .step__index { font-size: 19px; }
   .story-card > .lecture-note { font-size: 19px; margin-top: 11px; }
   .bib__header, .bib__footer { padding: 9px 20px; }
+  .bib__header { padding-inline: 32px; }
   .bib__footer { margin-top: 16px; }
   .bib__footer b { font-size: 21px; }
   .bib > .step__index { padding: 12px 20px 0; }

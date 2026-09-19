@@ -357,7 +357,7 @@ const distributionController = createStepController(".distribution-step", step =
   distributionStat.textContent = stat;
   distributionNote.textContent = note;
   animateChartView(distributionViews[mode]);
-});
+}, 1);
 
 /* The shared 400 metre thought experiment */
 const trackSection = document.querySelector(".track__scrolly");
