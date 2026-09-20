@@ -386,7 +386,7 @@ const trackSpeeds = {
   six: 42195 / (6 * 60 * 60),
   four: 42195 / (4 * 60 * 60),
   record: 42195 / (2 * 60 * 60 + 4 * 60 + 58),
-  almgren: 21097.5 / (58 * 60 + 41)
+  almgren: 21097.5 / (58 * 60 + 6)
 };
 
 function placeOnTrack(key, distance) {
@@ -435,7 +435,7 @@ function trackTimeFromScroll() {
 
 const trackCaptions = [
   "Alla står på startlinjen.",
-  "Almgrens halvmaratonfart: ett varv på 1:06,8.",
+  "Almgrens halvmaratonfart: ett varv på 1:06,1.",
   "Almgrens halvmaratonfart varvar fyratimmarslöparen.",
   "New Yorks banrekordstempo varvar fyratimmarslöparen."
 ];

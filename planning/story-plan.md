@@ -11,7 +11,7 @@ Andreas Almgren har redan farten. Den öppna frågan är om han kan behålla til
 1. **Frågan.** Almgrens 10-kilometers- och halvmaratontider står bredvid New Yorks banrekord. Hans maratonruta är tom.
 2. **Banan.** En schematisk New York-karta följer loppets verkliga ordning genom fem stadsdelar. Sex stopp bär maratonets historia från legenden till Almgrens debut.
 3. **Fältet.** 56 381 löpartider från 2025 bildar en fördelningskurva. Kameran går från hela fältet till den lilla elitkanten.
-4. **Farten.** Tre löpare startar tillsammans på en tänkt 400-metersbana. En fyratimmarslöpare varvas efter 2:10,7 av Almgrens halvmaratonfart och efter 2:28,3 av New Yorks rekordfart.
+4. **Farten.** Fyra löpare startar tillsammans på en tänkt 400-metersbana. En fyratimmarslöpare varvas efter 2:08,1 av Almgrens halvmaratonfart och efter 2:28,3 av New Yorks rekordfart.
 5. **Kroppen.** En anatomisk plansch visar löparen med ett förstorat utsnitt av vad och hälsena. Nästa steg följer syret genom lungor, hjärta och muskel. Samma löparbild återkommer i en jämförelse av syrebehov vid 18 km/h. En lugn, illustrativ kurva avslutar med förmågan att behålla farten.
 6. **Träningen.** En linjerad träningsdagbok ligger kvar medan scrollningen fokuserar fyra anteckningar: cirka 200 kilometer per vecka, dubbeltröskel, laktatkontroll och 35–40 kilometer långa långpass. Ett illustrativt veckoschema finns på vänstersidan. På mobil visas anteckningssidan ensam för att hålla texten läsbar. Kort kursiv marginaltext och rödbruna pennmarkeringar ger bokkänsla utan att brödtexten blir handskriven.
 7. **Den tomma tiden.** Banrekordet visas igen bredvid Almgrens ännu okända maratontid.
@@ -44,7 +44,7 @@ Fördelningen använder 15-minutersintervall från ett publikt dataset med 56 38
 - under tre timmar: 2 396 löpare eller 4,2 procent
 - fyratimmarsfart: 10,549 km/h och 2:16,51 per 400 meter
 - banrekordsfart 2:04:58: 20,259 km/h och 1:11,08 per 400 meter
-- Almgrens 58:41-fart: 21,571 km/h och 1:06,76 per 400 meter
+- Almgrens 58:06-fart: 21,787 km/h och 1:06,09 per 400 meter
 
 400-metersscenen räknar positionen som `(fart i meter per sekund × tid) modulo 400`. Den antar konstant genomsnittsfart och ska inte läsas som New York-banans faktiska fartprofil eller en prognos för Almgrens maraton.
 
@@ -60,7 +60,7 @@ Fördelningen använder 15-minutersintervall från ett publikt dataset med 56 38
 ## Redaktionella gränser
 
 - Rubriken är en journalistisk fråga. Almgren har inte offentligt lovat ett rekordförsök.
-- 58:41 är halvmaratonfart, inte en maratonprognos.
+- 58:06 är halvmaratonfart, inte en maratonprognos.
 - Inget VO₂max-värde tillskrivs Almgren. Syretransporten förklaras utan ett sifferintervall som kan förväxlas med hans mätvärde.
 - Anatomiplanscherna är AI-genererade pedagogiska illustrationer. Löpbilden visar ett exempel på frånskjut, ingen ideal löpstil. Hälsenans fjäderanalogi förklarar återförd energi utan att antyda att musklerna slutar arbeta.
 - Löpekonomin jämför syrebehov per kilo kroppsvikt vid samma fart. Staplarnas längder är illustrativa, inte data. Uthållighetskurvan har ingen numerisk y-axel och trettio kilometer är ingen biologisk gräns.
@@ -113,3 +113,6 @@ Fem formuleringar med vi/vår/vårt i berättelsen och kalenderns dynamiska bild
 
 ## Sista mobilputs, 19 september
 Nummerlappens överkant får 12 px extra inre marginal på båda sidor på mobil, så tejpen inte täcker bokstäver eller siffror. Kortet om London undviker dubbla ”blev” och behåller att distansen blev standard senare. Legendkortet säger nu att dagens maratondistans fastställdes långt senare. Löptidsdiagrammet byter zoom när ett kort når mobilskärmens nederkant, som sektion 4–5. Kontrollerat vid 390×844: peak-läget aktivt med kortets topp vid 739 px, återgång till full när toppen var 907 px, och tillbaka till peak vid framåtscroll. Inga konsolfel. Nummerlappens text och tejp kontrollerade visuellt vid 320 och 390 px. Publiceringens absoluta sökvägar och hemlänk bevarade.
+
+## Ny halvmaratontid, 20 september
+Halvmaratonreferensen uppdateras till 58:06 efter användarens besked om resultatet i Köpenhamn. World Athletics resultatsida kunde inte läsas vid kontrollen (403); tiden har därför inte verifierats oberoende i denna ändring. Personbästa, banetiketter, bildtext, alternativtext och animationsfart uppdateras tillsammans. Härlett: 21,787 km/h, 66,093 sekunder per 400 meter och 128,129 sekunder tills fyratimmarslöparen varvas. Scrollankarna avrundas till 66,09 och 128,13 sekunder. Referensen dateras i källavsnittet.
